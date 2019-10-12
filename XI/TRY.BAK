@@ -1,0 +1,10 @@
+#include<iostream.h>
+#include<conio.h>
+void main()
+{
+	clrscr();
+	int a,b,LCM=1,HCF=1;
+	cin>>a>>b;
+	LCM=(a>b)?a:b;
+	getch();
+}

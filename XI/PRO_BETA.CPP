@@ -1,0 +1,325 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+#include<dos.h>
+#include<stdio.h>
+#include<stdlib.h>
+int x=100,y=100,m,tu=0,tp=0,un=0,ua=0,up=0,uu=0,upa=0,gd=DETECT,gm;
+struct user
+{
+	char name[80];
+	char address[80];
+	char phone[80];
+	char username[80];
+	char password[80];
+} user, temp;
+void cup1(int a, int b)
+{
+	setcolor(DARKGRAY);
+	ellipse(a,b,180,360,40,65);
+	ellipse(a,b,0,360,40,10);
+	arc((a-37),(b+28),100,300,20);
+	setcolor(YELLOW);
+	arc((a-37),(b+28),100,300,19);
+	arc((a-37),(b+28),100,300,18);
+	arc((a-37),(b+28),100,300,17);
+	setcolor(DARKGRAY);
+	arc((a-37),(b+28),100,300,16);
+	ellipse((a-25),(b-10),270,90,5,10);
+	ellipse((a-25),(b-30),90,270,5,10);
+	ellipse(a,(b-10),270,90,5,10);
+	ellipse(a,(b-30),90,270,5,10);
+	ellipse((a+25),(b-10),270,90,5,10);
+	ellipse((a+25),(b-30),90,270,5,10);
+	setfillstyle(SOLID_FILL,YELLOW);
+	floodfill(a,(b+30),DARKGRAY);
+}
+void cup2(int a, int b)
+{
+	ellipse(a,b,180,360,40,65);
+	ellipse(a,b,0,360,40,10);
+	arc((a+35),(b+28),255,70,20);
+	setcolor(YELLOW);
+	arc((a+35),(b+28),255,70,19);
+	arc((a+35),(b+28),255,70,18);
+	arc((a+35),(b+28),255,70,17);
+	setcolor(DARKGRAY);
+	arc((a+35),(b+28),255,70,16);
+	ellipse((a-25),(b-10),90,270,5,10);
+	ellipse((a-25),(b-30),270,90,5,10);
+	ellipse(a,(b-10),90,270,5,10);
+	ellipse(a,(b-30),270,90,5,10);
+	ellipse((a+25),(b-10),90,270,5,10);
+	ellipse((a+25),(b-30),270,90,5,10);
+	setfillstyle(SOLID_FILL,YELLOW);
+	floodfill((a-10),(b+30),DARKGRAY);
+}
+void logo(int a, int b)
+{
+	setcolor(DARKGRAY);
+	arc((a+141),(b+142),45,135,200);
+	arc((a+141),(b+172),45,135,170);
+	line(a,b,(a+20),(b+52));
+	line((a+282),b,(a+262),(b+52));
+	line((a+61),(b+51),(a+220),(b+51));
+	line((a+61),(b+115),(a+220),(b+115));
+	arc((a+61),(b+83),90,270,32);
+	arc((a+220),(b+83),270,90,32);
+	line((a+10),(b+26),(a-30),(b+52));   //Left upper
+	line((a+272),(b+26),(a+312),(b+52));   //RightUpper
+	line((a+33),(b+40),(a+38),(b+53));   //Left Right loe
+	line((a-14),(b+89),(a+38),(b+53));   //left low
+	line((a+249),(b+40),(a+244),(b+53));   //Right left loe
+	line((a+296),(b+89),(a+244),(b+53));   //right low
+	line((a-14),(b+89),(a-7),(b+64));   //Left ribbon low
+	line((a-7),(b+64),(a-30),(b+52));   //Left ribbon upper
+	line((a+296),(b+89),(a+289),(b+64));   //Right ribbon lower
+	line((a+289),(b+64),(a+312),(b+52));   //Right upper ribbon
+	setfillstyle(SOLID_FILL,WHITE);
+	floodfill((a+35),(b+8),DARKGRAY);
+	floodfill((a+6),(b+43),DARKGRAY);
+	floodfill((a+276),(b+45),DARKGRAY);
+	setfillstyle(SOLID_FILL,GREEN);
+	floodfill((a+184),(b+82),DARKGRAY);
+	settextstyle(1,0,6);
+	setcolor(RED);
+	outtextxy((a+23),(b-31),"C");
+	outtextxy((a+59),(b-46),"E");
+	outtextxy((a+95),(b-58),"N");
+	outtextxy((a+131),(b-66),"T");
+	outtextxy((a+167),(b-58),"R");
+	outtextxy((a+203),(b-46),"A");
+	outtextxy((a+239),(b-31),"L");
+	settextstyle(3,0,5);
+	setcolor(WHITE);
+	outtextxy((a+66),(b+52),"P E R K");
+	settextstyle(3,0,2);
+	outtextxy((a+41),(b+62),"o");
+	outtextxy((a+235),(b+62),"o");
+}
+void loading_page()
+{
+	int i,j;
+
+	for(i=-40,j=680; j!=540 ; j-=4)
+	{
+		cleardevice();
+
+		if(i!=72)
+			i+=4;
+
+		//cup #1
+		cup1(i,95);
+
+		//cup #2
+		cup2(j,95);
+
+		//central perk logo
+		logo(159,78);
+
+		delay(200);
+	}
+	delay(1000);
+}
+void input(int x, int y, char m[], int n)
+{
+	for(int i=0;i<80;i++)
+	{
+		m[i]=getch();
+		if(m[i]==13)
+			break;
+		else
+		{
+			if(n==0)
+				outtextxy(x,y,&m[i]);
+			else if(n==1)
+				outtextxy(x,y,"*");
+			else
+				exit(1);
+			x+=10;
+		}
+	}
+	m[i]='\0';
+}
+void output(int x, int y, char m[], int n)
+{
+	if(n==0)
+	{
+		for(int i=0;i<1;i++)
+		{
+			if(m[i]=='\0')
+				break;
+			else
+				outtextxy(x,y,&m[i]);
+			x+=10;
+		}
+	 }
+	 else if(n==1)
+	 {
+		for(int i=0;i<80;i++)
+		{
+			if(m[i]=='\0')
+				break;
+			else
+				outtextxy(x,y,"*");
+			x+=10;
+		}
+	 }
+}
+void logon()
+{
+	settextstyle(3,0,1);
+	char X[20],Y[20];
+	sprintf(X,"x = %d",x);
+	sprintf(Y,"y = %d",y);
+	outtextxy(200,50,X);
+	outtextxy(200,70,Y);
+}
+void crsr()
+{
+	settextstyle(0,0,1);
+	setcolor(WHITE);
+	outtextxy(x,y,"");
+	m=getch();
+	if(m==100)
+		x+=5;
+	else if(m==97)
+		x-=5;
+	else if(m==115)
+		y+=5;
+	else if(m==119)
+		y-=5;
+	else if(m==101)
+		exit(1);
+}
+void main()
+{
+	initgraph(&gd,&gm,"C:\\TURBOC3\\BGI");
+	cleardevice();
+	setbkcolor(CYAN);
+	loading_page();
+	cleardevice();
+	//login_page
+	menu:
+	cleardevice();
+	setcolor(DARKGRAY);
+	rectangle(0,0,640,480);
+	ellipse(0,200,270,90,230,20);
+	arc(0,200,270,0,230);
+	arc(228,330,192,107,45);
+	arc(228,330,203,97,65);
+	setfillstyle(SOLID_FILL,BROWN);
+	floodfill(200,250,DARKGRAY);
+	floodfill(278,330,DARKGRAY);
+	setcolor(RED);
+	settextstyle(COMPLEX_FONT,0,9);
+	outtextxy(10,-20,"Login");
+	setfillstyle(SOLID_FILL,LIGHTCYAN);
+	setviewport(300,150,630,470,1);
+	for(;;)
+	{
+		clearviewport();
+		logon();
+		settextstyle(SIMPLEX_FONT,0,3);
+		setcolor(BLUE);
+		outtextxy(5,50,"Username :");
+		outtextxy(5,80,"Password :");
+		if(tu!=0)
+		{
+			settextstyle(SCRIPT_FONT,0,3);
+			setcolor(MAGENTA);
+			output(120,50,temp.username,0);
+		}
+		if(tp!=0)
+		{
+			settextstyle(SCRIPT_FONT,0,3);
+			setcolor(MAGENTA);
+			output(120,80,temp.password,1);
+		}
+		if(tp!=0 && tu!=0)
+		{
+			bar3d(100,130,170,160,10,1);
+			settextstyle(TRIPLEX_FONT,0,3);
+			setcolor(GREEN);
+			outtextxy(108,130,"DONE");
+		}
+		crsr();
+		if(m==13)
+		{
+			settextstyle(SCRIPT_FONT,0,3);
+			if(x>=0 && x<=100 && y>=60 && y<=70)
+			{
+				setcolor(MAGENTA);
+				input(120,50,temp.username,0);
+				tu++;
+			}
+			else if(x>=0 && x<100 && y>=90 && y<=105)
+			{
+				setcolor(MAGENTA);
+				input(120,80,temp.password,1);
+				tp++;
+			}
+			else if(x>=100 && x<=170 && y>130 && y<160)
+				goto rgstr;
+		}
+	}
+	//register_page
+	rgstr:
+	closegraph();
+	initgraph(&gd,&gm,"C:\\TURBOC3\\BGI");
+	for(;;)
+	{
+		cleardevice();
+		logon();
+		settextstyle(3,0,1);
+		outtextxy(100,200,"NAME : ");
+		outtextxy(100,230,"ADDRESS : ");
+		outtextxy(100,260,"PHONE NO. : ");
+		outtextxy(100,290,"USERNAME : ");
+		outtextxy(100,320,"PASSWORD : ");
+		if(un==1)
+			output(220,200,user.name,0);
+		if(ua==1)
+			output(220,230,user.address,0);
+		if(up==1)
+			output(220,260,user.phone,0);
+		if(uu==1)
+			output(220,290,user.username,0);
+		if(upa==1)
+			output(220,320,user.password,1);
+		crsr();
+		if(m==13)
+		{
+			settextstyle(3,0,1);
+			if(x>=100 && x<=135 && y>=205 && y<=215)
+			{
+				input(220,200,user.name,0);
+				un++;
+			}
+			if(x>=100 && x<=170 && y>=235 && y<=245)
+			{
+				input(220,230,user.address,0);
+				ua++;
+			}
+			if(x>=100 && x<=180 && y>=265 && y<=275)
+			{
+				input(220,260,user.phone,0);
+				up++;
+			}
+			if(x>=100 && x<=180 && y>=295 && y<=305)
+			{
+				input(220,290,user.username,0);
+				uu++;
+			}
+			if(x>=100 && x<=185 && y>=325 && y<=335)
+			{
+				input(220,320,user.password,1);
+				upa++;
+			}
+		}
+	}
+	for(;;)
+	{
+
+	}
+}

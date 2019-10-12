@@ -1,0 +1,81 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+#include<process.h>
+#include"graphio.h"
+#include"cursor.h"
+void main()
+{
+	clrscr();
+	int gd=DETECT,gm;
+	initgraph(&gd,&gm,"C:\\TURBOC3\\BGI");
+	setbkcolor(CYAN);
+	setcolor(RED);
+	settextstyle(1,0,3);
+	rectangle(0,0,640,480);
+
+
+
+	setviewport(0,0,639,65,1);
+	line(0,10,400,10);      //upar vali line
+	line(450,10,470,10);    //upar vali line returns
+	line(520,10,639,10);    //upar vali line vapis se
+
+	rectangle(470,0,520,50); //dibba
+	line(480,50,480,65);     //dibbe ka design
+	line(510,50,510,65);     //dibbe ka design 2
+	line(495,55,480,65);     //dibbe ka design 3
+	line(495,55,510,65);     //dibbe ka design 4
+	arc(495,40,0,180,15);	 //bandabody
+	circle(495,13,8);        //shakal
+
+	rectangle(400,0,450,50); //dibba 2
+	line(410,50,410,65);     //dibbe 2 ka design
+	line(440,50,440,65);     //dibbe 2 ka design 2
+	line(425,55,410,65);     //dibbe 2 ka design 3
+	line(425,55,440,65);     //dibbe 2 ka design 4
+
+	line(415,30,435,30);	//cartbase
+	line(415,30,405,15);
+	line(435,30,445,15);	//tan t = +ve
+	line(445,15,450,15);
+	circle(417,37,3);
+	circle(435,37,3);
+
+	rectangle(375,50,100,25);  //search_bar
+	outtextxy(25,25,"Search"); //search
+
+
+
+
+	setviewport(0,450,639,479,1);
+	line(0,0,640,0);    //navigatioin bar
+	line(215,0,215,30);  //navigation bar ki lines
+	line(430,0,430,30);  //navigation bar ki lines 2
+
+	ellipse(105,15,275,90,15,7); 	//back button
+	line(105,8,103,8);          //back button 2
+	line(103,8,107,11);		//back button arrow
+	line(103,8,107,5);          //back button arrow 2
+
+	line(320,15,320,25);	 //home button
+	line(340,15,340,25);   //home button 2
+	line(330,6,312,17);   //home button roof
+	line(330,6,348,17);   //home button roof 2
+
+	line(525,15,545,15);   //options button
+	line(525,10,545,10);   //options button 2
+	line(525,20,545,20);   //options button 3
+
+	setviewport(0,65,639,450,1);
+	line(20,185,20,205); //seedhi
+	line(20,185,5,195);  //tan theta=+ve
+	line(20,205,5,195);  //tan theta = -ve
+
+	line(619,185,619,205);
+	line(619,185,634,195);
+	line(619,205,634,195);
+
+
+	getch();
+}

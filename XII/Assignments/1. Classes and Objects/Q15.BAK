@@ -1,0 +1,47 @@
+#include<iostream.h>
+#include<stdio.h>
+#include<conio.h>
+class worker
+{
+int wno;
+char wname[25];
+float hewrk,wgrate;
+float totwage;
+float calcwg()
+{
+totwage = hewrk*wgrate;
+return totwage;
+}
+public:
+void in_data();
+void out_data();
+};
+void worker::in_data()
+{
+cout<<"Enter worker number:";
+cin>>wno;
+cout<<"enter worker name:";
+gets(wname);
+cout<<"Enter hours worked: ";
+cin>>hewrk;
+cout<<"Enter wage rate per hour:";
+cin>>wgrate;
+calcwg();
+}
+void worker::out_data()
+{
+cout<<"......Worker Information........"<<endl;
+cout<<"Worker number:"<<wno<<endl;
+cout<<" Worker name:"<<wname<<endl;
+cout<<" Hours worked:"<< hewrk<<endl;
+cout<<" Wage rate per hour:"<< wgrate<<endl;
+cout<<" Total wage:"<<totwage<<endl;
+}
+int main()
+{
+worker obj;
+obj.in_data();
+obj.out_data();
+getch();
+return 0;
+}

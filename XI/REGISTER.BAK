@@ -1,0 +1,46 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+#include<process.h>
+#include<graphics.h>
+#include"graphio.h"
+#include"cursor.h"
+void main()
+{
+	clrscr();
+	int gd=DETECT,gm;
+	initgraph(&gd,&gm,"C:\\TURBOC3\\BGI");
+	setbkcolor(CYAN);
+	setcolor(DARKGRAY);
+	rectangle(0,0,640,480);
+	ellipse(640,150,90,270,150,10);
+	ellipse(640,220,90,270,135,12);
+	line(490,150,550,450);
+	ellipse(640,450,180,270,90,5);
+	line(640,450,470,110);
+	line(640,430,474,102);
+	line(470,110,410,110);
+	line(474,102,410,102);
+	setfillstyle(SOLID_FILL,LIGHTBLUE);
+	floodfill(635,420,DARKGRAY);
+	floodfill(630,450,DARKGRAY);
+	floodfill(630,220,DARKGRAY);
+	floodfill(372,220,DARKGRAY);
+	setcolor(RED);
+	settextstyle(COMPLEX_FONT,0,9);
+	outtextxy(10,-20,"Register");
+	setviewport(30,130,450,400,1);
+	for(;;)
+	{
+		clearviewport();
+		settextstyle(SIMPLEX_FONT,0,3);
+		outtextxy(40,50,"Name :");
+		outtextxy(40,80,"Adderss :");
+		outtextxy(40,110,"Phone No :");
+		outtextxy(40,140,"Username");
+		outtextxy(40,170,"Password");
+
+		crsr();
+	}
+	getch();
+}

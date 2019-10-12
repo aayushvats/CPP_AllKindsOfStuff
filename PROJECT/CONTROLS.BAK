@@ -1,0 +1,53 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+
+class controls
+{
+    public:
+	void outline();
+	void showcontrols();
+};
+
+void controls::outline()
+{
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"CONTROLS");
+}
+
+void controls::showcontrols()
+{
+	outline();
+	setcolor(RED);
+	settextstyle(3,0,4);
+	outtextxy(50,100,"CRAZY TAXI :");
+	outtextxy(50,200,"PING PONG  :");
+	outtextxy(50,350,"DON'T SMASH:");
+	setcolor(WHITE);
+	settextstyle(2,0,3);
+	outtextxy(100,380,"JUMP  ->  Spacebar");
+	outtextxy(100,130,"LEFT  ->  'a'");
+	outtextxy(100,160,"RIGHT ->  'd'");
+	outtextxy(100,260,"LEFT  ->  'a'");
+	outtextxy(100,290,"RIGHT ->  'd'");
+	outtextxy(300,260,"LEFT  ->  'j'");
+	outtextxy(300,290,"RIGHT ->  'l'");
+	setcolor(YELLOW);
+	outtextxy(75,230,"PLAYER 1 :");
+	outtextxy(275,230,"PLAYER 2 :");
+}
+
+void main()
+{
+	int gd=DETECT, gm;
+	initgraph(&gd, &gm, "C:/TURBOC3/BGi");
+	cleardevice();
+	controls C;
+	C.showcontrols();
+	getch();
+}

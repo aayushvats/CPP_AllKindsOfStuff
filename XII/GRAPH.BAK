@@ -1,0 +1,36 @@
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+#include<stdio.h>
+int gd=DETECT, gm;
+void main()
+{
+	//THE EXPRESSION :
+	#define expr(x) sin(x)
+	initgraph( &gd, &gm, "C:/TURBOC3/BGi");
+	cleardevice();
+	// AXES :
+	// x-axis
+	line(0,240,640,240);
+	// y-axis
+	line(320,0,320,480);
+	int xs=20,ys=20;
+	// PLOTTING THE GRAPH :
+	// +ve side
+	for(int x1=0; x1<=320; x1+=1)
+	{
+		int y1=expr(x1/xs), x2=x1+1, y2=expr(x2/xs);
+		if(y1>240 || y1<-240)
+			break;
+		line((320+x1),240-y1*ys,(320+x2),240-y2*ys);
+	}
+	// -ve side
+	for(x1=0; x1>=-320; x1-=1)
+	{
+		int y1=expr(x1/xs), x2=x1+1, y2=expr(x2/xs);
+		if(y2>240 || y2<-240)
+			break;
+		line((320+x1)*ys,240-y1,(320+x2)*ys,240-y2);
+	}
+	getch();
+}

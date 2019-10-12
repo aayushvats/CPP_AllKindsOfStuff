@@ -1,0 +1,321 @@
+#include<conio.h>
+#include<graphics.h>
+#include<stdlib.h>
+#include<dos.h>
+#define SPEED 10
+#define JUMP 25
+int posx=320,posy=200;
+char v;
+void man(int x, int y)
+{
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-7,y+10+30);
+	line(x-7,y+10+30,x-7,y+10+30+20);
+	//the other one
+	line(x,y+10,x+7,y+10+30);
+	line(x+7,y+10+30,x+7,y+10+30+20);
+	//one of the legs
+	line(x,y+10+50,x-4,y+10+50+20);
+	line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+	//the other leg
+	line(x,y+10+50,x+4,y+10+50+20);
+	line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+}
+void man_right(int &x, int &y)
+{
+	x+=SPEED;
+
+	//BODY #1
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-10,y+10+20);
+	line(x-10,y+10+20,x-5,y+10+30+15);
+	//the other one
+	line(x,y+10,x+10,y+10+25);
+	line(x+10,y+10+25,x+25,y+10+40);
+	//one of the legs
+	line(x,y+10+50,x-2,y+10+50+20);
+	line(x-2,y+10+50+20,x-12,y+10+50+20+28);
+	//the other leg
+	line(x,y+10+50,x+6,y+10+50+15);
+	line(x+6,y+10+50+15,x+3,y+10+50+20+30);
+
+	delay(80);
+	cleardevice();
+	x+=SPEED;
+
+	//BODY #2
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-5,y+10+22);
+	line(x-5,y+10+18,x+5,y+10+30+13);
+	//the other one
+	line(x,y+10,x-2,y+10+25);
+	line(x-2,y+10+25,x-5,y+10+40);
+	//one of the legs
+	line(x,y+10+50,x+5,y+10+50+20);
+	line(x+5,y+10+50+20,x,y+10+50+20+28);
+	//the other leg
+	line(x,y+10+50,x-3,y+10+50+15);
+	line(x-3,y+10+50+15,x-6,y+10+50+20+30);
+
+	delay(80);
+
+}
+void man_left(int &x, int &y)
+{
+	x-=SPEED;
+
+	//BODY #1
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x+10,y+10+20);
+	line(x+10,y+10+20,x+5,y+10+30+15);
+	//the other one
+	line(x,y+10,x-10,y+10+25);
+	line(x-10,y+10+25,x-25,y+10+40);
+	//one of the legs
+	line(x,y+10+50,x+2,y+10+50+20);
+	line(x+2,y+10+50+20,x+12,y+10+50+20+28);
+	//the other leg
+	line(x,y+10+50,x-6,y+10+50+15);
+	line(x-6,y+10+50+15,x-3,y+10+50+20+30);
+
+	delay(80);
+	cleardevice();
+	x-=SPEED;
+
+	//BODY #2
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x+5,y+10+22);
+	line(x+5,y+10+18,x-5,y+10+30+13);
+	//the other one
+	line(x,y+10,x+2,y+10+25);
+	line(x+2,y+10+25,x+5,y+10+40);
+	//one of the legs
+	line(x,y+10+50,x-5,y+10+50+20);
+	line(x-5,y+10+50+20,x,y+10+50+20+28);
+	//the other leg
+	line(x,y+10+50,x+3,y+10+50+15);
+	line(x+3,y+10+50+15,x+6,y+10+50+20+30);
+
+	delay(80);
+}
+void man_up(int &x, int &y)
+{
+	y-=SPEED;
+
+	//BODY #1
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-7,y+10+30);
+	line(x-7,y+10+30,x-7,y+10+30+20);
+	//the other one
+	line(x,y+10,x+10,y+10+30);
+	line(x+10,y+10+30,x+7,y+10+30+20);
+	//one of the legs
+	line(x,y+10+50,x-6,y+10+50+20);
+	line(x-6,y+10+50+20,x-4,y+10+50+20+25);
+	//the other leg
+	line(x,y+10+50,x+4,y+10+50+20);
+	line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+
+	delay(80);
+	cleardevice();
+	y-=SPEED;
+
+	//BODY #2
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-10,y+10+30);
+	line(x-10,y+10+30,x-7,y+10+30+20);
+	//the other one
+	line(x,y+10,x+7,y+10+30);
+	line(x+7,y+10+30,x+7,y+10+30+20);
+	//one of the legs
+	line(x,y+10+50,x-4,y+10+50+20);
+	line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+	//the other leg
+	line(x,y+10+50,x+6,y+10+50+20);
+	line(x+6,y+10+50+20,x+4,y+10+50+20+25);
+
+	delay(80);
+}
+void man_down(int &x, int &y)
+{
+	y+=SPEED;
+
+	//BODY #1
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-7,y+10+30);
+	line(x-7,y+10+30,x-7,y+10+30+20);
+	//the other one
+	line(x,y+10,x+10,y+10+30);
+	line(x+10,y+10+30,x+7,y+10+30+20);
+	//one of the legs
+	line(x,y+10+50,x-6,y+10+50+22);
+	line(x-6,y+10+50+22,x-4,y+10+50+20+35);
+	//the other leg
+	line(x,y+10+50,x+4,y+10+50+20);
+	line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+
+	delay(80);
+	cleardevice();
+	y+=SPEED;
+
+	//BODY #2
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-10,y+10+30);
+	line(x-10,y+10+30,x-7,y+10+30+20);
+	//the other one
+	line(x,y+10,x+7,y+10+30);
+	line(x+7,y+10+30,x+7,y+10+30+20);
+	//one of the legs
+	line(x,y+10+50,x-4,y+10+50+20);
+	line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+	//the other leg
+	line(x,y+10+50,x+6,y+10+50+22);
+	line(x+6,y+10+50+22,x+4,y+10+50+20+35);
+
+	delay(80);
+}
+void man_hello(int &x, int &y)
+{
+	for(int i=0; i<3; ++i)
+	{
+		//BODY #1
+		//face
+		circle(x,y,10);
+		//body
+		line(x,y+10,x,y+10+50);
+		//one of the hands
+		line(x,y+10,x-25,y+10-15);
+		line(x-25,y+10-15,x-30,y+10-20-25);
+		//the other one
+		line(x,y+10,x+7,y+10+30);
+		line(x+7,y+10+30,x+7,y+10+30+20);
+		//one of the legs
+		line(x,y+10+50,x-4,y+10+50+20);
+		line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+		//the other leg
+		line(x,y+10+50,x+4,y+10+50+20);
+		line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+
+		delay(80);
+		cleardevice();
+
+		//BODY #2
+		//face
+		circle(x,y,10);
+		//body
+		line(x,y+10,x,y+10+50);
+		//one of the hands
+		line(x,y+10,x-27,y+10-15);
+		line(x-27,y+10-15,x-22,y+10-20-25);
+		//the other one
+		line(x,y+10,x+7,y+10+30);
+		line(x+7,y+10+30,x+7,y+10+30+20);
+		//one of the legs
+		line(x,y+10+50,x-4,y+10+50+20);
+		line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+		//the other leg
+		line(x,y+10+50,x+4,y+10+50+20);
+		line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+
+		delay(80);
+	}
+}
+void man_jump(int &x , int &y)
+{
+	//BODY #1
+	//face
+	circle(x,y,10);
+	//body
+	line(x,y+10,x,y+10+50);
+	//one of the hands
+	line(x,y+10,x-10,y+10+25);
+	line(x-10,y+10+25,x-7,y+10+25+20);
+	//the other one
+	line(x,y+10,x+10,y+10+25);
+	line(x+10,y+10+25,x+7,y+10+25+20);
+	//one of the legs
+	line(x,y+10+50,x-15,y+10+50+10);
+	line(x-15,y+10+50+10,x-4,y+10+50+10+15);
+	//the other leg
+	line(x,y+10+50,x+15,y+10+50+10);
+	line(x+15,y+10+50+10,x+4,y+10+50+10+15);
+
+	delay(100);
+}
+
+void main()
+{
+
+	int gd=DETECT, gm;
+	initgraph(&gd, &gm, "C:/TURBOC3/BGi");
+	cleardevice();
+	setlinestyle(SOLID_LINE, 1, 3);
+	for(;;)
+	{
+		if(kbhit())
+		{
+			int x ;
+			x = getch();
+			cleardevice();
+			if(x == 'd')
+				man_right(posx,posy);
+			else if(x == 'a')
+				man_left(posx,posy);
+			else if(x == 'w')
+				man_up(posx,posy);
+			else if(x == 's')
+				man_down(posx,posy);
+			else if(x == 'h')
+				man_hello(posx,posy);
+			else if(x == 'j')
+				man_jump(posx,posy);
+
+
+			else if(x == 27) //esc
+				exit(1);
+			cleardevice();
+			for(int i=0; i<4; ++i)  //to waste unwanted inputs
+				if(kbhit())
+					v=getch();
+		}
+		else if(!kbhit())
+			man(posx,posy);
+
+	}
+}

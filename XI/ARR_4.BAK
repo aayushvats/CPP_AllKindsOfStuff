@@ -1,0 +1,14 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+	clrscr();
+	cout<<"Enter a string : ";
+	char a[80],b[80];
+	gets(a);
+	strrev(a);
+	cout<<"The reversed string is : "<<a;
+	getch();
+}

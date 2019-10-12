@@ -1,0 +1,55 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+class Batsman
+{
+		char F_Name[30];
+		char L_Name[30];
+		int Runs_made,fours,sixes;
+	public:
+		void initial()
+		{
+			cout<<endl<<"\t Enter First Name: ";
+			gets(F_Name);
+			cout<<"\t Enter Last Name: ";
+			gets(L_Name);
+			cout<<"\t Enter The Runs Made: ";
+			cin>>Runs_made;
+			cout<<"\t Enter how many fours: ";
+			cin>>fours;
+			cout<<"\t Enter how many sixes: ";
+			cin>>sixes;
+		}
+		void update()
+		{
+			int new_run,new_four,new_sixes,cal_four,cal_six;
+			cout<<endl<<"\t Enter new runs Made: ";
+			cin>>new_run;
+			cout<<"\t Enter new fours Made: ";
+			cin>>new_four;
+			cout<<"\t Enter new sixes Made: ";
+			cin>>new_sixes;
+			fours=fours+new_four;
+			sixes=sixes+new_sixes;
+			cal_four=fours*4;
+			cal_six=sixes*6;
+			Runs_made=Runs_made+new_run+cal_four+cal_six;
+			display();
+			cout<<"\t Total Runs Made: "<<Runs_made<<endl;
+			cout<<"\t Number of fours: "<<fours<<endl;
+			cout<<"\t Number of sixes: "<<sixes<<endl;
+		}
+		void display()
+		{
+			cout<<"\t .....Batsman's information....."<<endl;
+			cout<<"\t Name: "<<F_Name<<" "<<L_Name<<endl;
+		}
+};
+void main()
+{
+	clrscr();
+	Batsman b1;
+	b1.initial();
+	b1.update();
+	getch();
+}

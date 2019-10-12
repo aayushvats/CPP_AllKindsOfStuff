@@ -1,0 +1,28 @@
+#include<conio.h>
+#include<iostream.h>
+void accept(int a[4][4],int size)
+{
+	cout<<"Elements left without both diagonals:\n  ";
+	for (int i=0;i<size;i++)
+	{
+		for(int j=0;j<size;j++)
+		{
+			if (i != j && i != size-j-1)
+			{
+				cout<<a[i][j]<<" ";
+			}
+			else if(i==j || i==size-j-1)
+			{
+				cout<<"  ";
+			}
+		}
+		cout<<"\n  ";
+	}
+}
+void main()
+{
+	int a[4][4]={{1,2,3,4},{5,6,7,8},{9,0,1,2},{3,4,5,6}};
+	clrscr();
+	accept(a,4);
+	getch();
+}

@@ -1,0 +1,98 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+class stock
+{
+		char author[50];
+		char title[50];
+		char pub[50];
+		double price;
+		int numcopies;
+	public:
+		stock();
+		int access_title(char a[]);
+		int access_author(char b[]);
+		void input();
+		void display();
+		void getdata(int);
+};
+stock::stock()
+{
+	char author[50]={"abc"};
+	char title[50]={"efg"};
+	char pub[50]={"hij"};
+	price=500;
+	numcopies=50;
+}
+int stock::access_title(char a[])
+{
+	if(strcmp(title,a))
+		return 0;
+	else
+		return 1;
+}
+int stock::access_author(char b[])
+{
+	if(strcmp(author,b))
+		return 0;
+	else
+		return 1;
+}
+void stock::getdata(int num)
+{
+	if(numcopies>=num)
+		cout<<"\nCost of "<<num<<" books is Rs. "<<(price*num);
+	else
+		cout<<"\nSorry! These many copies are not in stock!";
+}
+void stock::input()
+{
+	cout<<"\nTitle: ";
+	gets(title);
+	cout<<"Author:";
+	gets(author);
+	cout<<"Publisher:";
+	gets(pub);
+	cout<<"Prices:";
+	cin>>price;
+	cout<<"Copies available:";
+	cin>>numcopies;
+}
+void stock::display()
+{
+	cout<<"Title: "<<title<<endl;
+	cout<<"Author: "<<author<<endl;
+	cout<<"Publisher: "<<pub<<endl;
+	cout<<"Prices: "<<price<<endl;
+	cout<<"copies available: "<<numcopies<<endl;
+}
+void main()
+{
+	clrscr();
+	stock obj[2];
+	int n;
+	char ttle[50];
+	char auth[50];
+	cout<<"Enter details of 2 books";
+	for(int i=0;i<=1;++i)
+		obj[i].input();
+	cout<<endl;
+	cout<<"Enter title of required book";
+	gets(ttle);
+	cout<<"Enter author of required book";
+	gets(auth);
+	for(i=0;i<2;i++)
+	{
+		if((obj[i].access_title(ttle))&&(obj[i].access_author(auth)))
+		{
+			obj[i].display();
+			cout<<"How many copies? ";
+			cin>>n; obj[i].getdata(n);
+			getch();
+		}
+		else
+			cout<<"\nBook unavailable";
+	}
+	getch();
+}

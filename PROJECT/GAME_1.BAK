@@ -1,0 +1,369 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<dos.h>
+
+//car game
+
+class car_dodge
+{
+	int score,strt,over,speed,color;
+    public:
+	void outline();
+	void carme(int, int);
+	void carenm(int, int);
+	void side();
+	void main_game();
+	void update();
+	void ask_color();
+};
+
+void car_dodge::outline()
+{
+	rectangle(1,1,639,479);  //big_box
+	rectangle(10,10,370,469); //game_box
+	rectangle(380,10,629,469); //score_box
+	setfillstyle(8,12);
+	floodfill(2,2,15);
+}
+
+void car_dodge::carme(int x1, int y1)
+{
+	setviewport(x1,y1,x1+55,y1+95,0);
+	//rectangle(0,0,55,95);	//to know the range of my port
+	ellipse(27,28,0,180,25,28);  //front deck
+	line(2,28,2,75); 	//body#1
+	line(52,28,52,75);        //body#2
+	ellipse(27,28,0,180,20,3);  //front window #1
+	line(7,28,12,43);    	//front window #2
+	line(48,28,42,43);	//front window #3
+	ellipse(27,43,0,180,15,2); //front window #4
+	line(6,32,10,45);     //left window #1.1
+	line(6,32,6,57);      //left window #1.2
+	line(10,45,10,57);    //left window #1.3
+	line(6,57,10,57);	//left window #1.4
+	line(49,32,44,45);     //right window #1.1
+	line(49,32,49,57);      //right window #1.2
+	line(44,45,44,57);    //right window #1.3
+	line(49,57,44,57);	//right window #1.4
+	line(6,59,10,59);      //left window #2.1
+	line(6,59,6,72);	//left window #2.2
+	line(10,59,10,68);     //left window #2.3
+	line(6,72,10,68);	//left window #2.4
+	line(49,59,44,59);      //right window #2.1
+	line(49,59,49,72);	//right window #2.2
+	line(44,59,44,68);     //right window #2.3
+	line(49,72,44,68);	//right window #2.4
+	ellipse(27,72,180,360,14,2);  //back window #1
+	line(13,72,13,80);	   //back window #2
+	line(41,72,41,80);	    //back window #3
+	ellipse(27,80,180,360,14,2);	//back window #4
+	line(2,75,3,85);  	//back deck #1
+	line(52,75,51,85);       //back deck #2
+	ellipse(27,85,180,360,23,10);//back deck #3
+	rectangle(15,5,20,7);   //headlights #1
+	rectangle(40,5,35,7);   //headlights #2
+	rectangle(2,28,0,26); 	   //side view mirror #1
+	rectangle(52,28,54,26);    //side view mirror #2
+}
+
+
+void car_dodge::carenm(int x1, int y1)
+{
+	setviewport(x1,y1,x1+55,y1+95,0);
+	//rectangle(0,0,55,95);      //to know the range of my port
+	ellipse(27,67,180,360,25,28);  //front deck
+	line(2,67,2,20); 	//body#1
+	line(52,67,52,20);        //body#2
+	ellipse(27,67,180,360,20,3);  //front window #1
+	line(7,67,12,52);    	//front window #2
+	line(48,67,42,52);	//front window #3
+	ellipse(27,52,180,360,15,2); //front window #4
+	line(6,63,10,50);     //left window #1.1
+	line(6,63,6,38);      //left window #1.2
+	line(10,50,10,38);    //left window #1.3
+	line(6,38,10,38);	//left window #1.4
+	line(49,63,44,50);     //right window #1.1
+	line(49,63,49,38);      //right window #1.2
+	line(44,50,44,38);    //right window #1.3
+	line(49,38,44,38);	//right window #1.4
+	line(6,36,10,36);      //left window #2.1
+	line(6,36,6,23);	//left window #2.2
+	line(10,36,10,27);     //left window #2.3
+	line(6,23,10,27);	//left window #2.4
+	line(49,36,44,36);      //right window #2.1
+	line(49,36,49,23);	//right window #2.2
+	line(44,36,44,27);     //right window #2.3
+	line(49,23,44,27);	//right window #2.4
+	ellipse(27,23,0,180,14,2);  //back window #1
+	line(13,23,13,15);	   //back window #2
+	line(41,23,41,15);	    //back window #3
+	ellipse(27,15,0,180,14,2);	//back window #4
+	line(2,20,3,10);  	//back deck #1
+	line(52,20,51,10);       //back deck #2
+	ellipse(27,10,0,180,23,10);//back deck #3
+	rectangle(15,90,20,88);   //headlights #1
+	rectangle(40,90,35,88);   //headlights #2
+	rectangle(2,67,0,69); 	   //side view mirror #1
+	rectangle(52,67,54,69);    //side view mirror #2
+}
+
+void car_dodge::side()
+{
+	strt=0;
+	over=0;
+	setviewport(382,12,627,467,0);
+	settextstyle(10,0,4);
+	outtextxy(30,0,"CRAZY");
+	outtextxy(40,50,"TAXI");
+	settextstyle(3,0,3);
+	outtextxy(10,130,"CONTROLS : ");
+	outtextxy(10,210,"MOTIVE :");
+	settextstyle(3,0,1);
+	outtextxy(20,160,"Right -> 'd'");
+	outtextxy(20,180,"Left  -> 'a'");
+	outtextxy(20,235,"Save yourself from");
+	outtextxy(20,255,"coming cars...");
+	update();
+}
+
+void car_dodge::update()
+{
+	setviewport(392,290,627,467,0);
+	clearviewport();
+	if(!strt)
+	{
+		settextstyle(5,0,2);
+		score=0;
+		outtextxy(0,20,"Press any key to start");
+		getch();
+		strt=1;
+	}
+	else if(strt)
+	{
+		settextstyle(3,0,3);
+		outtextxy(0,10,"SCORE :");
+		settextstyle(3,0,9);
+		char S[10];
+		itoa(score,S,10);
+		outtextxy(0,30,S);
+	}
+	if(over)
+	{
+		settextstyle(3,0,5);
+		outtextxy(110,30,"GAME");
+		outtextxy(110,70,"OVER");
+		getch();
+	}
+}
+
+void car_dodge::ask_color()
+{
+	setviewport(12,12,368,467,0);
+	for(int i=0; i!=116; i+=2)
+	{
+		clearviewport();
+		rectangle(178-i,152,178+i,292);
+		delay(10);
+	}
+	//62 152 294 292
+	settextstyle(6,0,3);
+	outtextxy(80,152,"Choose Your Color");
+	setcolor(15);
+	circle(178,230,35);
+	color=1;
+	for(;;)
+	{
+		if(color==15)
+			color=2;
+		setfillstyle(SOLID_FILL,color);
+		floodfill(178,230,15);
+		char b;
+		b=getch();
+		if(b=='a')
+			--color;
+		else if(b=='d')
+			++color;
+		else if(b==13)
+			break;
+	}
+	for(i=116; i!=0; i-=2)
+	{
+		clearviewport();
+		rectangle(178+i,152,178-i,292);
+		delay(10);
+		clearviewport();
+	}
+}
+
+void car_dodge::main_game()
+{
+	outline();
+	ask_color();
+	side();
+	update();
+	speed=69;
+	setviewport(12,12,368,467,0);
+	int x=2,c,p,i=15,j=15,k=15;
+	int b1=0,b2=0,b3=0,n;
+	randomize();
+	for(;;)
+	{
+		clearviewport();
+		setcolor(color);
+		if(x==1)
+			carme(55,350);
+		else if(x==2)
+			carme(160,350);
+		else if(x==3)
+			carme(265,350);
+
+		if(b1==0 && b2==0 && b3==0)
+		{
+			c=random(3)+1;
+			p=random(15)+1;
+		}
+		setcolor(p);
+		if(c==1)
+		{
+			if(b1==0)
+				b1=1;
+		}
+		else if(c==2)
+		{
+			if(b2==0)
+				b2=1;
+		}
+		else if(c==3)
+		{
+			if(b3==0)
+				b3=1;
+		}
+
+		if(x==1)
+		{
+			if(i>=255)
+			{
+				over=1;
+				update();
+				break;
+			}
+		}
+
+		else if(x==2)
+		{
+			if(j>=255)
+			{
+				over=1;
+				update();
+				break;
+			}
+		}
+		else if(x==3)
+		{
+			if(k>=255)
+			{
+				over=1;
+				update();
+				break;
+			}
+		}
+
+		if(b1!=0)
+		{
+			carenm(55,i);
+			delay(speed);
+			clearviewport();
+			i+=10;
+			if(i>350)
+			{
+				i=15;
+				b1=0;
+				++score;
+				if(speed>1)
+					--speed;
+				update();
+			}
+		}
+		if(b2!=0)
+		{
+			carenm(160,j);
+			delay(speed);
+			clearviewport();
+			j+=10;
+			if(j>350)
+			{
+				j=15;
+				b2=0;
+				++score;
+				if(speed>1)
+					--speed;
+				update();
+			}
+		}
+		if(b3!=0)
+		{
+			carenm(265,k);
+			delay(speed);
+			clearviewport();
+			k+=10;
+			if(k>350)
+			{
+				k=15;
+				b3=0;
+				++score;
+				if(speed>1)
+					--speed;
+				update();
+			}
+		}
+
+		if(kbhit())
+		{
+			char e=getch();
+			if(e==27)
+				break;
+			else if(e=='a')
+			{
+				if(x==2)
+				{
+					setviewport(160,350,160+55,350+95,0);
+					x=1;
+				}
+				else if(x==3)
+				{
+					setviewport(265,350,265+55,350+95,0);
+					x=2;
+				}
+				clearviewport();
+			}
+			else if(e=='d')
+			{
+				if(x==2)
+				{
+					setviewport(160,350,160+55,350+95,0);
+					x=3;
+				}
+				else if(x==1)
+				{
+					setviewport(55,350,55+55,350+95,0);
+					x=2;
+				}
+				clearviewport();
+			}
+		}
+		setviewport(12,12,368,467,0);
+	}
+}
+
+void main()
+{
+	int gd=DETECT, gm;
+	initgraph(&gd, &gm, "C:/TURBOC3/BGi");
+	cleardevice();
+	setbkcolor(8);
+	car_dodge C;
+	C.main_game();
+}

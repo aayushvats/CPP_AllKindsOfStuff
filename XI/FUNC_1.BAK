@@ -1,0 +1,22 @@
+#include<iostream.h>
+#include<conio.h>
+double sumdig(double a)
+{
+	double s=0,n=0;
+	for(;a>0;a=a/10)
+	{
+		n=a%10;
+		s=s+n;
+	}
+	return(s);
+}
+void main()
+{
+clrscr();
+double a,s;
+cout<<"Give a number ";
+cin>>a;
+s=sumdig(a);
+cout<<endl<<"The sum of the digits of "<<a<<" is "<<s;
+getch();
+}

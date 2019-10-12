@@ -1,0 +1,186 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+#include<fstream.h>
+#include<string.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<dos.h>
+char username[25];
+class user
+{
+    public:
+	char name[20],password[20];
+	int ch,ph,dh;
+	void getdata();
+	user();
+};
+
+user::user()
+{
+	ch=ph=dh=0;
+}
+
+void user::getdata()
+{
+	gotoxy(10,10);
+	cout<<"Enter Username : ";
+	gets(name);
+	gotoxy(10,11);
+	cout<<"Enter Password : ";
+	for(int i=0; i<20; ++i)
+	{
+		char a;
+		a=getch();
+		if(a!=13)
+		{
+			password[i]=a;
+			cout<<"*";
+		}
+		else if(a==13)
+			break;
+	}
+	password[i]='\0';
+}
+
+class login
+{
+    public:
+	void outline();
+	void L0GIN();
+	void REGISTER();
+	void ask();
+};
+
+void login::REGISTER()
+{
+	clearviewport();
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"REGISTER");
+	user U1;
+	ofstream filin;
+	U1.getdata();
+	strcpy(username,"G_");
+	strcat(username,U1.name);
+	filin.open(username,ios::in | ios::noreplace);
+	if(filin.fail()==0)
+	{
+		filin.write((char*)&U1 , sizeof(U1));
+		filin.close();
+		cout<<"\n \t File Created";
+		filin.write((char*)&U1 , sizeof(U1));
+		filin.close();
+		delay(2*1000);
+		exit(0);
+	}
+	else
+	{
+		cout<<"\n \t Username already exists";
+		delay(2*1000);
+		ask();
+	}
+}
+
+void login::L0GIN()
+{
+	clearviewport();
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"LOGIN");
+	user U2,U3;
+	fstream filin2;
+	U2.getdata();
+	strcpy(username,"G_");
+	strcat(username,U2.name);
+	filin2.open(username,ios::in | ios::nocreate);
+	if(filin2.fail()==0)
+	{
+		filin2.seekg(0);
+		filin2.read((char*)&U3 , sizeof(U3));
+		if(strcmp(U2.name,U3.name)==0 && strcmp(U2.password,U3.password)==0)
+		{
+			cout<<"\n \t WELCOME";
+			delay(2*1000);
+			exit(0);
+		}
+		else
+		{
+			cout<<"\n \t Incorrect Password";
+			delay(2*1000);
+			ask();
+		}
+	}
+	else
+	{
+		cout<<"\n \t Wrong Username";
+		delay(2*1000);
+		ask();
+	}
+	end:
+	filin2.close();
+}
+
+void login::outline()
+{
+	setviewport(1,1,639,479,1);
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	setviewport(12,12,628,468,1);
+	clearviewport();
+}
+
+void login::ask()
+{
+	outline();
+	settextstyle(8,0,2);
+	char w='w',b;
+	setcolor(YELLOW);
+	setviewport(12,12,628,468,1);
+	for(;;)
+	{
+		settextstyle(8,0,2);
+		setcolor(YELLOW);
+		if(w=='w')
+		{
+			outtextxy(170,190,"* Open a previous account");
+			outtextxy(192,230,"Create a new account");
+			setcolor(RED);
+			outtextxy(170,190,"*");
+		}
+		else if(w=='s')
+		{
+			outtextxy(192,190,"Open a previous account");
+			outtextxy(170,230,"* Create a new account");
+			setcolor(RED);
+			outtextxy(170,230,"*");
+		}
+		b=w;
+		w=getch();
+		if(w!='w' && w!='s' && w!=13 && w!=27)
+			w=b;
+		clearviewport();
+		if(w==13)
+		{
+			if(b=='w')
+				L0GIN();
+			else if(b=='s')
+				REGISTER();
+			break;
+		}
+		else if(w==27)
+			break;
+	}
+}
+
+void main()
+{
+	int gd=DETECT, gm;
+	initgraph(&gd, &gm,"C:/TURBOC3/BGi");
+	cleardevice();
+	login L;
+	L.ask();
+	getch();
+}

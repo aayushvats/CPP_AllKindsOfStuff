@@ -1,0 +1,78 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+class date
+{
+ public:
+int d,m,y;
+void getdate()
+{
+cout<<"Enter day,month and year:";
+cin>>d;cin>>m;cin>>y;
+}
+void putdate()
+{
+cout<<"Date of sale: "<<d<<"/"<<m<<"/"<<y<<"/"<<endl;
+}
+};
+class invo
+{
+public:
+int cno;
+char cname[30];
+char add[50];
+int ino,qty;
+char desc[30];
+float price,disc_per,tax_per;
+void getinfo()
+{
+cout<<"Enter customer number: ";
+cin>>cno;
+cout<<"Enter customer Name: ";
+gets(cname);
+cout<<"Enter customer Address: ";
+gets(add);
+cout<<"Enter item number: ";
+cin>>ino;
+cout<<"Enter Quantity: ";
+cin>>qty;
+cout<<"Enter dscription: ";
+gets(desc);
+cout<<"Enter price: ";
+cin>>price;
+cout<<"Enter discount percentage: ";
+cin>>disc_per;
+cout<<"Enter tax percentage: ";
+cin>>tax_per;
+}
+void disp_info()
+{
+float disc,final,tax,tot;
+cout<<"Customer number: "<<cno<<endl;
+cout<<"Customer name: "<<cname<<endl;
+cout<<"Customer address: "<<add<<endl;
+cout<<"Item number: "<<ino<<endl;
+cout<<"Quantity: "<<qty<<endl;
+cout<<"Dscription: "<<desc<<endl;
+cout<<"Price per unit: "<<price<<endl;
+cout<<"Discount percentage: "<<disc_per<<endl;
+cout<<"Tax percentage: "<<tax_per<<endl;
+tot=price*qty;
+cout<<"Total price:"<<tot<<endl;
+disc=((tot*disc_per)/100);
+tax=((tot*tax_per)/100);
+final=(tot+tax)-disc;
+cout<<"Final Price: "<<final<<endl;
+}
+};
+void main()
+{
+clrscr();
+date d1;
+invo i1;
+d1.getdate();
+i1.getinfo();
+d1.putdate();
+i1.disp_info();
+getch();
+}

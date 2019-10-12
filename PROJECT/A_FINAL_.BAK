@@ -1,0 +1,2560 @@
+//ลฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤล
+//ณ...CLASS 12th 2018-19...ณ
+//ลฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤล
+
+//ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+//Ý...MADE BY AAYUSH VATS...Þ
+//Ý......CLASS XII - A......Þ
+//Ý.........2018-19.........Þ
+//฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿฿
+
+//ษออออออออออออออออออออออป
+//บINCLUDING HEADER FILESบ
+//ศออออออออออออออออออออออผ
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+#include<fstream.h>
+#include<string.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<dos.h>
+
+//ษออออออออออออออออป
+//บGLOBAL USERNAME บ
+//ศออออออออออออออออผ
+char username[25];
+
+//ษออออออออออออออออออป
+//บCLASS DECLARATIONSบ
+//ศออออออออออออออออออผ
+
+//class for loading
+class loading
+{
+    public:
+	void frstload();
+	void img1();
+	void img2();
+	void img3();
+	void load();
+	void showload();
+	void output(int, int, char*);
+}LOAD;
+
+//class for the moving human stick figure
+class human
+{
+    protected:
+	int posx,posy;
+	char v;
+    public:
+	human();
+	void man(int, int);
+	void man_left(int&, int&);
+	void man_right(int&, int&);
+	void man_up(int&, int&);
+	void man_down(int&, int&);
+};
+
+//class menu derived from class human
+class menu:private human
+{
+	int page;
+    public:
+	void outline();
+	void options(int);
+	void man_working(int, int, int, int);
+	void update();
+	void menu01();
+}M;
+
+//class that handles highscores
+class highscores
+{
+    public:
+	void outline();
+	void get_high();
+	void update();
+}H;
+
+//class to handle the credits page
+class credits
+{
+    public:
+	void outline();
+	void credtits(int);
+	void showcredits();
+}C;
+
+//class for certificate page
+class certificate
+{
+    public:
+	void outline();
+	void showcertificate();
+}CERT;
+
+//class for controls page
+class controls
+{
+    public:
+	void outline();
+	void showcontrols();
+}CONT;
+
+//class for the GAME_1
+class car_dodge
+{
+	int score,strt,over,speed,color;
+    public:
+	void outline();
+	void carme(int, int);
+	void carenm(int, int);
+	void side();
+	void main_game();
+	void update();
+	void ask_color();
+}CAR;
+
+//class to control GAME_2
+class ping_pong
+{
+	int mode,strt,over,score,score1,score2,speed;
+    public:
+	void outline();
+	void multiplayer(int, int);
+	void singleplayer(int, int);
+	void paddle(int, int, int ,int );
+	void ask_mode();
+	void top();
+	void update(int);
+	void main_game();
+	void ball(int, int, int , int);
+}PING;
+
+//class to handle GAME_3
+class run
+{
+	int strt,over,score,speed;
+    public:
+	void man1(int, int);
+	void man2(int, int);
+	void jump(int, int);
+	void bottom();
+	void obstacle1(int, int);
+	void obstacle2(int, int);
+	void maingame();
+	void outline();
+	void update();
+}RUN;
+
+//class user to make user files
+class user
+{
+    public:
+	char name[20],password[20];
+	int ch,ph,dh;
+	void getdata();
+}U;
+
+//class forLogin
+class login
+{
+    public:
+	void outline();
+	void L0GIN();
+	void REGISTER();
+	void ask();
+};
+
+
+//ษออออออออออป
+//บ   MAIN   บ
+//ศออออออออออผ
+void main()
+{
+	randomize();
+	int gd=DETECT, gm;
+	initgraph(&gd, &gm,"C:/TURBOC3/BGi");
+	cleardevice();
+	login L;
+	LOAD.frstload();  //showing loading screen
+	L.ask();   //asking to login or register
+	getch();
+}
+
+//ษออออออออออออออออออออป
+//บFUNCTION DEFINATIONSบ
+//ศออออออออออออออออออออผ
+
+//functions of class loading
+void loading::frstload()   //first loading
+{
+	settextstyle(3,0,4);
+	for(int i=-125,j=660; ; ++i,--j)
+	{
+		if(i>240 || j<330)
+			break;
+		cleardevice();
+		setcolor(15);
+		if(j==580)
+			getch();
+		outtextxy(j,200,"VATS");
+		setcolor(8);
+		outtextxy(i,200,"AAYUSH");
+		delay(10);
+	}
+	settextstyle(3,0,1);
+	setcolor(8);
+	outtextxy(150,160,"MADE BY -");
+	delay(200);
+	setcolor(9);
+	outtextxy(150,160,"MADE BY -");
+	delay(2*1000);
+	getch();
+}
+
+void loading::img1()   //ironman
+{
+	//face
+	arc(320,100,60,120,50);  //top of head
+	line(293,57,294,117);   //left face
+	line(294,117,310,130);   //left chin
+	line(347,57,346,117);    //right face
+	line(346,117,330,130); //right chin
+	line(310,130,330,130);     //chin base
+	line(313,51,313,61);  //top notch left
+	line(327,51,327,61);  //top notch right
+	line(314,62,326,62);   //top notch bottom
+	line(292,75,320,82);//left eyebrow
+	line(320,82,348,75);  //right eyebrow
+	line(315,81,311,86); //left eye1
+	line(311,86,300,82); //left eye2
+	line(300,82,300,77); //left eye3
+	line(325,81,329,86);  //right eye1
+	line(329,86,340,82);  //right eye2
+	line(340,82,340,77);  //right eye3  */
+	ellipse(294,115,0,90,10,25); //left jawline
+	ellipse(346,115,90,180,10,25);//right "
+	line(304,115,308,112); //upp jaw left
+	line(336,115,332,112); // upp jaw right
+	line(308,112,332,112); //upper jaw
+	line(310,114,330,114);// lower jaw
+	line(310,114,305,119);  //low jaw left
+	line(330,114,335,119); //low jaw right
+	line(305,119,305,125);  //lowerjaw2
+	line(335,119,335,125); //lower jaw3
+
+	//body
+	line(295,120,265,122); //neck left
+	line(292,120,285,140); //neck left2
+	line(285,140,255,150);// side design left
+	line(265,122,255,150); //design left
+	line(285,140,320,160); // design left 2
+	line(285,145,265,155);  //design left3
+	line(345,120,375,122);  //neck right
+	line(347,120,355,140);  //neck right2
+	line(355,140,385,150);   //design right
+	line(375,122,385,150); //right design3
+	line(355,140,320,160);  // right line
+	line(355,145,375,155);//joining line
+}
+
+void loading::img2()    //deadpool
+{
+	//head
+	ellipse(320,65,0,180,28,15);//headtop
+	line(292,65,292,105); //left side of face
+	line(348,65,348,105); //right side of face
+	line(292,105,305,130);  //left jaw
+	line(335,130,348,105); //right jaw
+	ellipse(320,130,180,360,15,2);   //chin
+	line(317,87,307,70);     //left eyepatch1
+	line(307,70,298,75);    //"2
+	line(298,75,298,102);    //"3
+	line(298,102,308,110);  //"4
+	line(308,110,317,87);    //"5
+	line(307,70,305,55);
+	line(308,110,306,126);
+	line(323,87,333,70); //right eyepatch1
+	line(333,70,342,75);    //"2
+	line(342,75,342,102);  //"3
+	line(342,102,332,110);  //"4
+	line(332,110,323,87); //"5
+	line(333,70,335,55);
+	line(332,110,334,126);
+	ellipse(307,87,0,360,6,3);
+	ellipse(333,87,0,360,6,3);
+
+	//body
+	line(345,115,346,140);//neck right
+	line(295,115,294,140);//neck left
+	line(294,130,260,145);//shoulder left
+	line(346,130,380,145); //shoulder right
+
+	//swords
+	//left
+	line(286,134,275,90);
+	line(276,138,264,93);
+	line(275,90,264,93);
+	//right
+	line(354,134,365,90);
+	line(364,138,376,93);
+	line(365,90,375,93);
+}
+
+void loading::img3()     //batman
+{
+	//head
+	ellipse(320,65,0,180,28,15);//headtop
+	line(292,65,292,27); //left horn left
+	line(292,27,305,53);//left horn right
+	line(348,65,348,27); //right horn right
+	line(348,27,335,53);//right horn left
+	line(292,65,292,100); //left side of face
+	line(348,65,348,100); //right side of face
+	line(292,95,320,105);  //left mask
+	line(320,105,348,95);   //right mask
+	line(320,105,320,84);//mask nose centre
+	line(312,103,315,82);  //mask nose left
+	line(315,82,298,77);//left eye1
+	line(298,77,308,87); //left eye2
+	line(308,87,315,82); //left eye3
+	line(327,102,325,82);  //mask nose right
+	line(325,82,342,77);//right eye1
+	line(342,77,332,87); //right eye2
+	line(332,87,325,82);  //right eye3
+	line(292,100,305,130);  //left jaw
+	line(335,130,348,100); //right jaw
+	line(312,115,327,115);//mouth
+	line(312,115,309,118); // mouth left
+	line(327,115,330,118); //mouth right
+	ellipse(320,130,180,360,15,2);   //chin
+
+	//body
+	line(342,115,343,140);//neck right
+	line(298,115,297,140);//neck left
+	line(297,130,263,145);//shoulder left
+	line(343,130,377,145); //shoulder right
+}
+
+void loading::load()
+{
+	setviewport(300,200,340,240,1);
+	for(int i=0; i<360*3; i+=5)
+	{
+		arc(20,20,0+i,290+i,20);
+		arc(20,20,0+i,290+i,19);
+		arc(20,20,0+i,290+i,18);
+		arc(20,20,0+i,290+i,17);
+		arc(20,20,0+i,290+i,16);
+		fillellipse(20,20,10,10);
+		delay(20);
+		clearviewport();
+	}
+}
+
+void loading::showload()
+{
+	setviewport(1,1,639,479,1);
+	clearviewport();
+	int r=random(3)+1;
+	setcolor(WHITE);
+	if(r==1)
+		img1();
+	else if(r==2)
+		img2();
+	else if(r==3)
+		img3();
+	settextstyle(2,0,4);
+	setcolor(RED);
+	load();
+	getch();
+}
+
+void run::man1(int x, int y)
+{
+	setviewport(x,y,x+160,y+140,0);
+	//rectangle(1,1,159,139);
+	//setlinestyle(SOLID_LINE, 1, 3);
+	circle(100,20,14);    //face
+	line(63,18,125,48);  //upper arm
+	line(63,18,38,33);    //left arm
+	line(125,48,150,33);  //right arm
+	line(92,34,75,80);  //body
+	line(43,85,115,75);  //upper legs
+	line(43,85,10,65);   //left leg
+	line(115,75,145,105);   //right leg
+}
+
+void run::man2(int x, int y)
+{
+	setviewport(x,y,x+160,y+140,0);
+	//rectangle(1,1,159,139);
+	//setlinestyle(SOLID_LINE, 1, 3);
+	circle(85,14,14);    //face
+	line(80,28,53,55);  //left upper arm
+	line(53,55,92,60);   //left below arm
+	line(80,28,82,63); //right upper arm
+	line(82,63,110,53);   //right lower arm
+	line(80,28,65,78);   //body
+	line(65,78,68,110);  //left upper leg
+	line(68,110,60,140);  //left lower leg
+	line(65,78,97,100);  //right upper leg
+	line(97,100,55,105);  //right lower leg
+}
+
+void run::jump(int x, int y)
+{
+	setviewport(x,y,x+160,y+107,0);
+	//rectangle(1,1,159,105);
+	//setlinestyle(SOLID_LINE, 1, 3);
+	circle(85,15,14);    //face
+	line(80,29,55,76);  //body
+	line(55,76,95,81);  //left leg up
+	line(95,81,82,106);  //left leg down
+	line(55,76,98,73); //right leg up
+	line(98,73,90,103);  //right leg down
+	line(80,29,50,16);  //left arm upper
+	line(50,16,30,29);   //left arm lower
+	line(80,29,45,23); //right arm up
+	line(45,23,30,35);  //right arm down
+}
+
+void run::obstacle1(int x, int y)
+{
+	setviewport(x,y,x+100,y+30,1);
+	//rectangle(1,1,99,49);
+	setcolor(4);
+	line(1,30,5,1);
+	line(5,1,10,30);
+	line(10,30,15,1);
+	line(15,1,20,30);
+	line(20,30,25,1);
+	line(25,1,30,30);
+	line(30,30,35,1);
+	line(35,1,40,30);
+	line(40,30,45,1);
+	line(45,1,50,30);
+	line(50,30,55,1);
+	line(55,1,60,30);
+	line(60,30,65,1);
+	line(65,1,70,30);
+	line(70,30,75,1);
+	line(75,1,80,30);
+	line(80,30,85,1);
+	line(85,1,90,30);
+	line(90,30,95,1);
+	line(95,1,100,30);
+}
+
+void run::obstacle2(int x, int y)
+{
+	setviewport(x,y,x+70,y+100,1);
+	setcolor(2);
+	//rectangle(1,1,69,99);
+	line(25,100,25,60); //body of cactus1
+	line(45,100,45,45); //body of cactus2
+	line(25,60,4,50); //left1
+	line(25,45,20,42); //left2
+	line(4,50,4,20);	//left3
+	line(20,42,20,20);	//left4
+	arc(12,20,0,180,8);  //lefttop
+	line(25,45,25,10); //body cont.
+	arc(35,10,0,180,10); //body top.
+	line(45,45,68,30);	//right1
+	line(45,33,48,30); //right2
+	line(45,10,45,33);  //body cont.
+	line(68,30,68,18);  //right3
+	line(48,30,48,18);   //right4
+	arc(58,18,0,180,10);  //right top
+}
+
+void run::bottom()
+{
+	strt=0;
+	over=0;
+	speed=150;
+	setviewport(12,326,627,467,1);
+	settextstyle(10,0,4);
+	outtextxy(10,0,"DON'T");
+	outtextxy(10,55,"SMASH");
+	setcolor(14);
+
+	settextstyle(3,0,3);
+	outtextxy(190,0,"CONTROLS : ");
+	outtextxy(350,0,"MOTIVE : ");
+
+	setcolor(15);
+	settextstyle(6,0,1);
+	outtextxy(350,30,"Save yourself");
+	outtextxy(350,47,"from obstacles");
+	outtextxy(185,40,"Jump -> Spacebar");
+}
+
+void run::outline()
+{
+	setviewport(1,1,639,479,1);
+	setcolor(15);
+	clearviewport();
+
+	rectangle(1,1,639,479);  //big_box
+	rectangle(10,324,629,469); //score_box
+	rectangle(10,10,629,314); //game_box
+	line(10,294,629,294);//land
+	setfillstyle(11,14);   //coloring
+	floodfill(12,306,15);  //land
+	setfillstyle(8,9);
+	floodfill(2,2,15);
+}
+
+void run::update()
+{
+	setviewport(475,326,627,467,0);
+	if(!strt)
+	{
+		settextstyle(5,0,2);
+		score=0;
+		outtextxy(10,20,"Press any ");
+		outtextxy(10,50,"key to start ");
+		getch();
+		strt=1;
+	}
+	if(strt)
+	{
+		clearviewport();
+		settextstyle(3,0,3);
+		outtextxy(10,0,"SCORE :");
+		settextstyle(3,0,8);
+		char S[10];
+		itoa(score,S,10);
+		outtextxy(10,10,S);
+	}
+	if(over)
+	{
+		settextstyle(3,0,4);
+		outtextxy(10,80,"GAME");
+		outtextxy(10,105,"OVER");
+		getch();
+		//load
+		if(score>U.dh)
+		{
+			U.dh=score;
+			H.update();
+		}
+		M.menu01();
+	}
+}
+
+void run::maingame()
+{
+	outline();
+	bottom();
+	update();
+	int i,r,f=0,j=0,j1=0,up=1,dwn=0,rn=1,m=1,k=10,p=0;
+	randomize();
+	man1(12,152);
+	for(;;)
+	{
+		setcolor(15);
+		++p;
+		if(rn==1)
+		{
+			if(m==1)
+			{
+				man1(12,152);
+					m=2;
+			}
+			else if(m==2)
+			{
+				man2(12,152);
+					m=1;
+			}
+		}
+
+		if(j==1)
+		{
+			if(up==1)
+			{
+				jump(12,152-j1);
+				j1+=15;
+				if(152-j1<=22)
+				{
+					up=0;
+					dwn=1;
+					j1=0;
+				}
+			}
+			else if(dwn==1)
+			{
+				jump(12,22+j1);
+				j1+=15;
+				if(j1>=130)
+				{
+					dwn=0;
+					up=1;
+					j=0;
+					j1=0;
+					rn=1;
+				}
+			}
+		}
+
+		if(f==0)
+		{
+			r=random(2)+1;
+			f=1;
+		}
+
+		if(f==1)
+		{
+			if(r==1)
+			{
+				obstacle1(530-k,264);
+				k+=10;
+				if(k==520)
+				{
+					f=0;
+					r=0;
+					k=10;
+					++score;
+					if(speed!=5)
+						speed-=5;
+					update();
+				}
+			}
+			else if(r==2)
+			{
+				obstacle2(530-k,194);
+				k+=10;
+				if(k==520)
+				{
+					f=0;
+					r=0;
+					k=10;
+					++score;
+					if(speed!=5)
+						speed-=5;
+					update();
+				}
+			}
+		}
+
+		if(rn==1 && (530-k)<=150)
+		{
+			over=1;
+			update();
+			getch();
+			exit(0);
+		}
+
+		if(kbhit())
+		{
+			char m=getch();
+			if(m==32)   //spacebar encounter
+			{
+				j=1;
+				rn=0;
+			}
+			else if(m==27)  //esc
+				exit(0);
+		}
+
+		delay(speed);
+		setviewport(12,12,628,294,1);
+		clearviewport();
+	}
+}
+
+void ping_pong::outline()
+{
+	setviewport(1,1,639,479,1);
+	setcolor(15);
+	clearviewport();
+
+	rectangle(1,1,639,479);  //big_box
+	rectangle(10,10,629,155); //score_box
+	rectangle(10,165,629,469); //game_box
+	setfillstyle(8,10);
+	floodfill(2,2,15);
+}
+
+void ping_pong::ask_mode()
+{
+	char b;
+	setviewport(20,175,529,459,1);
+	for(int i=0; i!=170; i+=2)
+	{
+		clearviewport();
+		rectangle(310-i,73,310+i,213);
+		delay(10);
+	}
+	//140 480
+	mode=1;
+	settextstyle(6,0,4);
+	outtextxy(180,73,"Choose Your Mode");
+	multiplayer(200,140);
+	singleplayer(360,135);
+	for(;;)
+	{
+		setcolor(2);
+		if(mode==1)
+		{
+			multiplayer(200,140);
+			setcolor(15);
+			singleplayer(360,135);
+		}
+		if(mode==2)
+		{
+			singleplayer(360,135);
+			setcolor(15);
+			multiplayer(200,140);
+		}
+		char a;
+		b=getch();
+		switch(b)
+		{
+			case 0 :
+			{
+				a=getch();
+				switch(a)
+				{
+					case 72 :
+						break;
+					case 80 :
+						break;
+					case 77 :
+						mode=2;
+						break;
+					case 75 :
+						mode=1;
+						break;
+				}
+				break;
+			}
+			case 13 :
+				goto out;
+		}
+	}
+	out:
+	for(i=170; i!=0; i-=2)
+	{
+		clearviewport();
+		rectangle(310+i,73,310-i,213);
+		delay(10);
+		clearviewport();
+	}
+}
+
+void ping_pong::paddle(int x1, int y1, int a, int b)
+{
+	setviewport(a+x1,b+y1,a+x1+160,b+y1+15,1);
+	rectangle(0,0,160,15);
+}
+
+void ping_pong::ball(int x1, int y1, int a, int b)
+{
+	setviewport(a+x1,b+y1,a+x1+10,b+y1+10,1);
+	circle(5,5,5);
+}
+
+void ping_pong::multiplayer(int x, int y)
+{
+	circle(x+18,y+10,10);
+	ellipse(x+18,y+48,0,180,18,28);
+	circle(x+43,y+8,8);
+	ellipse(x+43,y+39,0,140,15,22);
+}
+
+void ping_pong::singleplayer(int x, int y)
+{
+	circle(x+18,y+10,10);
+	ellipse(x+18,y+48,0,180,18,28);
+}
+
+void ping_pong::top()
+{
+	strt=0;
+	over=0;
+	setviewport(12,12,627,153,1);
+	settextstyle(10,0,4);
+	outtextxy(10,0,"PING");
+	outtextxy(10,50,"PONG");
+	setcolor(14);
+	if(mode==1)
+	{
+		multiplayer(120,10);
+		setcolor(15);
+		settextstyle(6,0,1);
+		setcolor(3);
+		outtextxy(190,25,"PLAYER 1 :");
+		outtextxy(190,42,"Right -> ' d ' ");
+		outtextxy(190,59,"Left  -> ' a '");
+		setcolor(4);
+		outtextxy(190,79,"PLAYER 2 :");
+		outtextxy(190,96,"Right -> ' l '");
+		outtextxy(190,113,"Left  -> ' j '");
+		setcolor(15);
+	}
+	else if(mode==2)
+	{
+		singleplayer(120,10);
+		setcolor(15);
+		settextstyle(6,0,1);
+		outtextxy(190,40,"Right -> ' d '");
+		outtextxy(190,60,"Left  -> ' a '");
+	}
+	settextstyle(3,0,3);
+	outtextxy(190,0,"CONTROLS : ");
+	outtextxy(350,0,"MOTIVE : ");
+	settextstyle(6,0,1);
+	outtextxy(350,25,"Don't let the ");
+	outtextxy(350,42,"ball drop ");
+}
+
+void ping_pong::update(int i)
+{
+	setviewport(470,12,627,153,0);
+	clearviewport();
+	if(!strt)
+	{
+		settextstyle(5,0,2);
+		score=0;
+		score1=0;
+		score2=0;
+		speed=10;
+		outtextxy(10,20,"Press any ");
+		outtextxy(10,50,"key to start ");
+		getch();
+		strt=1;
+	}
+	if(strt)
+	{
+		if(mode==2)
+		{
+			clearviewport();
+			settextstyle(3,0,3);
+			outtextxy(10,0,"SCORE :");
+			settextstyle(6,0,3);
+			char S[10];
+			sprintf(S,"%d",score);
+			outtextxy(10,20,S);
+			if(score1%4==0)
+			{
+				if(speed!=1)
+					--speed;
+			}
+		}
+		else if(mode==1)
+		{
+			clearviewport();
+			settextstyle(3,0,3);
+			outtextxy(10,0,"SCORE :");
+			settextstyle(6,0,1);
+			outtextxy(10,25,"PLAYER 1 :");
+			outtextxy(10,60,"PLAYER 2 :");
+			char S1[10],S2[10];
+			sprintf(S1,"%d",score1);
+			sprintf(S2,"%d",score2);
+			outtextxy(10,40,S1);
+			outtextxy(10,75,S2);
+			if(score1%4==0)
+			{
+				if(speed!=1)
+					--speed;
+			}
+		}
+	}
+	if(over)
+	{
+		if(mode==2)
+		{
+			settextstyle(3,0,3);
+			outtextxy(5,95,"GAME OVER");
+			getch();
+			if(score>U.ph)
+			{
+				U.ph=score;
+				H.update();
+			}
+			//load
+			M.menu01();
+		}
+		if(mode==1)
+		{
+			settextstyle(3,0,3);
+			if(i==1)
+				outtextxy(5,95,"PLAYER 1 WON");
+			else if(i==2)
+				outtextxy(5,95,"PLAYER 2 WON");
+			//load
+			M.menu01();
+		}
+	}
+}
+
+void ping_pong::main_game()
+{
+	outline();
+	ask_mode();
+	top();
+	update(0);
+	setviewport(11,166,628,468,1);
+	int x=253,y=253,b=151,u=0,ur=0,dr=0,d=0,dl=0,ul=0;
+	char t;
+	randomize();
+	if(mode==2)
+	{
+		int c=random(307)+200,q=random(15)+1,r=random(2)+1;
+		if(r==1)
+			d=1;
+		else if(r==2)
+			u=1;
+		for(;;)
+		{
+			setviewport(11,166,628,468,1);
+			setcolor(3);
+			paddle(x,285,11,166); //paddle
+			setcolor(q);
+			ball(c,b,11,166);
+			delay(speed);
+			clearviewport();
+			setviewport(11,166,628,468,1);
+			//moving the ball.
+			if(u==1)
+			{
+				--b;
+			}
+			else if(ur==1)
+			{
+				--b;
+				++c;
+			}
+			else if(dr==1)
+			{
+				++b;
+				++c;
+			}
+			else if(d==1)
+			{
+				++b;
+			}
+			else if(dl==1)
+			{
+				++b;
+				--c;
+			}
+			else if(ul==1)
+			{
+				--b;
+				--c;
+			}
+			//changing direction
+			if(b==0)
+			{
+				if(ur==1)
+				{
+					ur=0;
+					dr=1;
+				}
+				else if(ul==1)
+				{
+					ul=0;
+					dl=1;
+				}
+				else if(u==1)
+				{
+					u=0;
+					d=1;
+				}
+			}
+			else if(c==0)
+			{
+				if(ul==1)
+				{
+					ul=0;
+					ur=1;
+				}
+				else if(dl==1)
+				{
+					dl=0;
+					dr=1;
+				}
+			}
+			else if(c==607)
+			{
+				if(ur==1)
+				{
+					ur=0;
+					ul=1;
+				}
+				else if(dr==1)
+				{
+					dr=0;
+					dl=1;
+				}
+			}
+			else if(b==275)            //touching the paddle
+			{
+				if(c>=x && c<=x+160)
+				{
+					++score;
+					update(0);
+					if(t=='a')
+					{
+						if(d==1)
+						{
+							d=0;
+							ul=1;
+						}
+						else if(dr==1)
+						{
+							dr=0;
+							ul=1;
+						}
+						else if(dl==1)
+						{
+							dl=0;
+							ul=1;
+						}
+					}
+					else
+					{
+						if(d==1)
+						{
+							d=0;
+							ur=1;
+						}
+						else if(dr==1)
+						{
+							dr=0;
+							ur=1;
+						}
+						else if(dl==1)
+						{
+							dl=0;
+							ur=1;
+						}
+					}
+				}
+				else
+				{
+					over=1;
+					update(0);
+					getch();
+					break;
+				}
+			}
+			if(kbhit())
+			{
+				t=getch();
+				setviewport(11,166,628,468,1);
+				clearviewport();
+				if(t=='a')
+				{
+					if(x!=3)
+						x-=10;
+				}
+				else if(t=='d')
+				{
+					if(x!=453)
+						x+=10;
+				}
+				else if(t==27)
+					break;
+			}
+		}
+	}
+	else if(mode==1)
+	{
+		int c=random(307)+200,q=random(15)+1,r=random(2)+1;
+		if(r==1)
+			d=1;
+		else if(r==2)
+			u=1;
+		for(;;)
+		{
+			setviewport(11,166,628,468,1);
+			setcolor(3);
+			paddle(x,285,11,166); //paddle   #1
+			setcolor(4);
+			paddle(y,3,11,166);	//paddle #2
+			setcolor(q);
+			ball(c,b,11,166);
+			delay(speed);
+			clearviewport();
+			setviewport(11,166,628,468,1);
+			//moving the ball.
+			if(u==1)
+			{
+				--b;
+			}
+			else if(ur==1)
+			{
+				--b;
+				++c;
+			}
+			else if(dr==1)
+			{
+				++b;
+				++c;
+			}
+			else if(d==1)
+			{
+				++b;
+			}
+			else if(dl==1)
+			{
+				++b;
+				--c;
+			}
+			else if(ul==1)
+			{
+				--b;
+				--c;
+			}
+			//changing direction
+			if(b==20)
+			{
+				if(c>=y && c<=y+160)
+				{
+					++score2;
+					update(0);
+					if(t=='j')
+					{
+						if(u==1)
+						{
+							u=0;
+							dr=1;
+						}
+						else if(ur==1)
+						{
+							ur=0;
+							dl=1;
+						}
+						else if(ul==1)
+						{
+							ul=0;
+							dl=1;
+						}
+					}
+					else
+					{
+						if(u==1)
+						{
+							u=0;
+							dr=1;
+						}
+						else if(ur==1)
+						{
+							ur=0;
+							dr=1;
+						}
+						else if(ul==1)
+						{
+							ul=0;
+							dr=1;
+						}
+					}
+				}
+				else
+				{
+					over=1;
+					update(1);
+					getch();
+					break;
+				}
+			}
+			else if(c==0)
+			{
+				if(ul==1)
+				{
+					ul=0;
+					ur=1;
+				}
+				else if(dl==1)
+				{
+					dl=0;
+					dr=1;
+				}
+			}
+			else if(c==607)
+			{
+				if(ur==1)
+				{
+					ur=0;
+					ul=1;
+				}
+				else if(dr==1)
+				{
+					dr=0;
+					dl=1;
+				}
+			}
+			else if(b==275)            //touching the paddle
+			{
+				if(c>=x && c<=x+160)
+				{
+					++score1;
+					update(0);
+					if(t=='a')
+					{
+						if(d==1)
+						{
+							d=0;
+							ul=1;
+						}
+						else if(dr==1)
+						{
+							dr=0;
+							ul=1;
+						}
+						else if(dl==1)
+						{
+							dl=0;
+							ul=1;
+						}
+					}
+					else
+					{
+						if(d==1)
+						{
+							d=0;
+							ur=1;
+						}
+						else if(dr==1)
+						{
+							dr=0;
+							ur=1;
+						}
+						else if(dl==1)
+						{
+							dl=0;
+							ur=1;
+						}
+					}
+				}
+				else
+				{
+					over=1;
+					update(2);
+					getch();
+					break;
+				}
+			}
+			if(kbhit())
+			{
+				t=getch();
+				setviewport(11,166,628,468,1);
+				clearviewport();
+				if(t=='a')
+				{
+					if(x!=3)
+						x-=10;
+				}
+				else if(t=='d')
+				{
+					if(x!=453)
+						x+=10;
+				}
+				else if(t=='j')
+				{
+					if(y!=3)
+						y-=10;
+				}
+				else if(t=='l')
+				{
+					if(y!=453)
+						y+=10;
+				}
+				else if(t==27)
+					break;
+			}
+		}
+
+	}
+}
+
+void car_dodge::outline()
+{
+	setviewport(1,1,639,479,1);
+	setcolor(15);
+	clearviewport();
+
+	rectangle(1,1,639,479);  //big_box
+	rectangle(10,10,370,469); //game_box
+	rectangle(380,10,629,469); //score_box
+	setfillstyle(8,12);
+	floodfill(2,2,15);
+}
+
+void car_dodge::carme(int x1, int y1)
+{
+	setviewport(x1,y1,x1+55,y1+95,0);
+	//rectangle(0,0,55,95);	//to know the range of my port
+	ellipse(27,28,0,180,25,28);  //front deck
+	line(2,28,2,75); 	//body#1
+	line(52,28,52,75);        //body#2
+	ellipse(27,28,0,180,20,3);  //front window #1
+	line(7,28,12,43);    	//front window #2
+	line(48,28,42,43);	//front window #3
+	ellipse(27,43,0,180,15,2); //front window #4
+	line(6,32,10,45);     //left window #1.1
+	line(6,32,6,57);      //left window #1.2
+	line(10,45,10,57);    //left window #1.3
+	line(6,57,10,57);	//left window #1.4
+	line(49,32,44,45);     //right window #1.1
+	line(49,32,49,57);      //right window #1.2
+	line(44,45,44,57);    //right window #1.3
+	line(49,57,44,57);	//right window #1.4
+	line(6,59,10,59);      //left window #2.1
+	line(6,59,6,72);	//left window #2.2
+	line(10,59,10,68);     //left window #2.3
+	line(6,72,10,68);	//left window #2.4
+	line(49,59,44,59);      //right window #2.1
+	line(49,59,49,72);	//right window #2.2
+	line(44,59,44,68);     //right window #2.3
+	line(49,72,44,68);	//right window #2.4
+	ellipse(27,72,180,360,14,2);  //back window #1
+	line(13,72,13,80);	   //back window #2
+	line(41,72,41,80);	    //back window #3
+	ellipse(27,80,180,360,14,2);	//back window #4
+	line(2,75,3,85);  	//back deck #1
+	line(52,75,51,85);       //back deck #2
+	ellipse(27,85,180,360,23,10);//back deck #3
+	rectangle(15,5,20,7);   //headlights #1
+	rectangle(40,5,35,7);   //headlights #2
+	rectangle(2,28,0,26); 	   //side view mirror #1
+	rectangle(52,28,54,26);    //side view mirror #2
+}
+
+
+void car_dodge::carenm(int x1, int y1)
+{
+	setviewport(x1,y1,x1+55,y1+95,0);
+	//rectangle(0,0,55,95);      //to know the range of my port
+	ellipse(27,67,180,360,25,28);  //front deck
+	line(2,67,2,20); 	//body#1
+	line(52,67,52,20);        //body#2
+	ellipse(27,67,180,360,20,3);  //front window #1
+	line(7,67,12,52);    	//front window #2
+	line(48,67,42,52);	//front window #3
+	ellipse(27,52,180,360,15,2); //front window #4
+	line(6,63,10,50);     //left window #1.1
+	line(6,63,6,38);      //left window #1.2
+	line(10,50,10,38);    //left window #1.3
+	line(6,38,10,38);	//left window #1.4
+	line(49,63,44,50);     //right window #1.1
+	line(49,63,49,38);      //right window #1.2
+	line(44,50,44,38);    //right window #1.3
+	line(49,38,44,38);	//right window #1.4
+	line(6,36,10,36);      //left window #2.1
+	line(6,36,6,23);	//left window #2.2
+	line(10,36,10,27);     //left window #2.3
+	line(6,23,10,27);	//left window #2.4
+	line(49,36,44,36);      //right window #2.1
+	line(49,36,49,23);	//right window #2.2
+	line(44,36,44,27);     //right window #2.3
+	line(49,23,44,27);	//right window #2.4
+	ellipse(27,23,0,180,14,2);  //back window #1
+	line(13,23,13,15);	   //back window #2
+	line(41,23,41,15);	    //back window #3
+	ellipse(27,15,0,180,14,2);	//back window #4
+	line(2,20,3,10);  	//back deck #1
+	line(52,20,51,10);       //back deck #2
+	ellipse(27,10,0,180,23,10);//back deck #3
+	rectangle(15,90,20,88);   //headlights #1
+	rectangle(40,90,35,88);   //headlights #2
+	rectangle(2,67,0,69); 	   //side view mirror #1
+	rectangle(52,67,54,69);    //side view mirror #2
+}
+
+void car_dodge::side()
+{
+	strt=0;
+	over=0;
+	setviewport(382,12,627,467,0);
+	settextstyle(10,0,4);
+	outtextxy(30,0,"CRAZY");
+	outtextxy(40,50,"TAXI");
+	settextstyle(3,0,3);
+	outtextxy(10,130,"CONTROLS : ");
+	outtextxy(10,210,"MOTIVE :");
+	settextstyle(3,0,1);
+	outtextxy(20,160,"Right -> Arrow Right");
+	outtextxy(20,180,"Left  -> Arrow Left");
+	outtextxy(20,235,"Save yourself from");
+	outtextxy(20,255,"coming cars...");
+	update();
+}
+
+void car_dodge::update()
+{
+	setviewport(392,290,627,467,0);
+	clearviewport();
+	if(!strt)
+	{
+		settextstyle(5,0,2);
+		score=0;
+		outtextxy(0,20,"Press any key to start");
+		getch();
+		strt=1;
+	}
+	else if(strt)
+	{
+		settextstyle(3,0,3);
+		outtextxy(0,10,"SCORE :");
+		settextstyle(3,0,9);
+		char S[10];
+		itoa(score,S,10);
+		outtextxy(0,30,S);
+	}
+	if(over)
+	{
+		settextstyle(3,0,5);
+		outtextxy(110,30,"GAME");
+		outtextxy(110,70,"OVER");
+		getch();
+		if(score>U.ch)
+		{
+			U.ch=score;
+			H.update();
+		}
+		//load
+		M.menu01();
+	}
+}
+
+void car_dodge::ask_color()
+{
+	setviewport(12,12,368,467,0);
+	for(int i=0; i!=116; i+=2)
+	{
+		clearviewport();
+		rectangle(178-i,152,178+i,292);
+		delay(10);
+	}
+	//62 152 294 292
+	settextstyle(6,0,3);
+	outtextxy(80,152,"Choose Your Color");
+	setcolor(15);
+	circle(178,230,35);
+	color=1;
+	for(;;)
+	{
+		if(color==15)
+			color=2;
+		setfillstyle(SOLID_FILL,color);
+		floodfill(178,230,15);
+		char b,a;
+		b=getch();
+		if(b==0)
+		{
+			a=getch();
+			if(a==75)
+				--color;
+			else if(a==77)
+				++color;
+		}
+		else if(b==13)
+			goto endit;
+	}
+	endit:
+	for(i=116; i!=0; i-=2)
+	{
+		clearviewport();
+		rectangle(178+i,152,178-i,292);
+		delay(10);
+		clearviewport();
+	}
+}
+
+void car_dodge::main_game()
+{
+	outline();
+	ask_color();
+	side();
+	update();
+	speed=69;
+	setviewport(12,12,368,467,0);
+	int x=2,c,p,i=15,j=15,k=15;
+	int b1=0,b2=0,b3=0,n;
+	randomize();
+	for(;;)
+	{
+		clearviewport();
+		setcolor(color);
+		if(x==1)
+			carme(55,350);
+		else if(x==2)
+			carme(160,350);
+		else if(x==3)
+			carme(265,350);
+
+		if(b1==0 && b2==0 && b3==0)
+		{
+			c=random(3)+1;
+			p=random(15)+1;
+		}
+		setcolor(p);
+		if(c==1)
+		{
+			if(b1==0)
+				b1=1;
+		}
+		else if(c==2)
+		{
+			if(b2==0)
+				b2=1;
+		}
+		else if(c==3)
+		{
+			if(b3==0)
+				b3=1;
+		}
+
+		if(x==1)
+		{
+			if(i>=255)
+			{
+				over=1;
+				update();
+				break;
+			}
+		}
+
+		else if(x==2)
+		{
+			if(j>=255)
+			{
+				over=1;
+				update();
+				break;
+			}
+		}
+		else if(x==3)
+		{
+			if(k>=255)
+			{
+				over=1;
+				update();
+				break;
+			}
+		}
+
+		if(b1!=0)
+		{
+			carenm(55,i);
+			delay(speed);
+			clearviewport();
+			i+=10;
+			if(i>350)
+			{
+				i=15;
+				b1=0;
+				++score;
+				if(speed>1)
+					--speed;
+				update();
+			}
+		}
+		if(b2!=0)
+		{
+			carenm(160,j);
+			delay(speed);
+			clearviewport();
+			j+=10;
+			if(j>350)
+			{
+				j=15;
+				b2=0;
+				++score;
+				if(speed>1)
+					--speed;
+				update();
+			}
+		}
+		if(b3!=0)
+		{
+			carenm(265,k);
+			delay(speed);
+			clearviewport();
+			k+=10;
+			if(k>350)
+			{
+				k=15;
+				b3=0;
+				++score;
+				if(speed>1)
+					--speed;
+				update();
+			}
+		}
+
+		if(kbhit())
+		{
+			char e=getch(),n;
+			if(e==27)
+				break;
+			else if(e==0)
+			{
+				n=getch();
+				if(n==75)
+				{
+					if(x==2)
+					{
+						setviewport(160,350,160+55,350+95,0);
+						x=1;
+					}
+					else if(x==3)
+					{
+						setviewport(265,350,265+55,350+95,0);
+						x=2;
+					}
+					clearviewport();
+					}
+				else if(n==77)
+				{
+					if(x==2)
+					{
+						setviewport(160,350,160+55,350+95,0);
+						x=3;
+					}
+					else if(x==1)
+					{
+						setviewport(55,350,55+55,350+95,0);
+						x=2;
+					}
+					clearviewport();
+				}
+			}
+		}
+		setviewport(12,12,368,467,0);
+	}
+}
+
+void controls::outline()
+{
+	setviewport(1,1,639,479,1);
+	setcolor(15);
+	clearviewport();
+
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"CONTROLS");
+}
+
+void controls::showcontrols()
+{
+	outline();
+	setcolor(RED);
+	settextstyle(3,0,4);
+	outtextxy(50,100,"CRAZY TAXI :");
+	outtextxy(50,200,"PING PONG  :");
+	outtextxy(50,350,"DON'T SMASH:");
+	setcolor(WHITE);
+	settextstyle(1,0,3);
+	outtextxy(100,380,"JUMP  ->  Spacebar");
+	outtextxy(100,130,"LEFT  ->  Left Arrow");
+	outtextxy(100,160,"RIGHT ->  Right Arrow");
+	outtextxy(100,260,"LEFT  ->  ' a '");
+	outtextxy(100,290,"RIGHT ->  ' d '");
+	outtextxy(300,260,"LEFT  ->  ' j '");
+	outtextxy(300,290,"RIGHT ->  ' l '");
+	setcolor(YELLOW);
+	outtextxy(75,230,"PLAYER 1 :");
+	outtextxy(275,230,"PLAYER 2 :");
+	getch();
+	//load
+	M.menu01();
+}
+
+void certificate::outline()
+{
+	setviewport(1,1,639,479,1);
+	clearviewport();
+	setcolor(15);
+
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"CERTIFICATE");
+}
+
+void certificate::showcertificate()
+{
+	outline();
+	setcolor(WHITE);
+	setfillstyle(SOLID_FILL,WHITE);
+	rectangle(120,100,480,460);
+	floodfill(130,110,WHITE);
+	setcolor(RED);
+	settextstyle(4,0,3);
+	outtextxy(160,110,"Apeejay School,Pitampura");
+	settextstyle(8,0,2);
+	outtextxy(220,210,"CERTIFICATE");
+	setcolor(BLUE);
+	outtextxy(150,160,"Department of Computers");
+	settextstyle(0,0,0);
+	setcolor(BLACK);
+	outtextxy(140,260,"This is to certify that Aayush Vats, a ");
+	outtextxy(140,275,"of class XII-A has succesfully completed");
+	outtextxy(140,290,"the project 'Arcade Games UI' under the");
+	outtextxy(140,305,"guidance of Ms.Puja Malhotra during the ");
+	outtextxy(140,320,"year 2018-19 in the partial fulfillment of");
+	outtextxy(140,335,"computer science practical examination");
+	outtextxy(140,350,"conducted by AISSCE, New Delhi.");
+	getch();
+	//load
+	M.menu01();
+}
+
+void credits::outline()
+{
+	setviewport(1,1,639,479,1);
+	clearviewport();
+	setcolor(15);
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"CREDITS");
+}
+
+void credits::credtits(int y)
+{
+	outtextxy(10,y,"In the accomplishment of this project succesfully, many people");
+	outtextxy(0,y+15,"have best owned upon me their blessings and their heartpledged");
+	outtextxy(0,y+30,"support, this time I am utilising to thank all the people who");
+	outtextxy(0,y+45,"have been concerned with this project.");
+	outtextxy(10,y+70,"Primarily I would thank god for being able to complete this ");
+	outtextxy(0,y+85,"project with success. Then I would like to thank my principal ");
+	outtextxy(0,y+100,"Mrs.Veena Goel and computer teachers Ms.Pooja Malhotra and ");
+	outtextxy(0,y+115,"Mr.Pankaj Ahuja, whose valuable guidance has been the ones that");
+	outtextxy(0,y+130,"helped me patch this project and make it full proof success. Her");
+	outtextxy(0,y+145,"suggestions and her instructions have served as the major ");
+	outtextxy(0,y+160,"contributor towards the completion of this project.");
+	outtextxy(10,y+185,"Then I would like to thank my parents and friends who have");
+	outtextxy(0,y+200,"helped me with their valuable suggestions and guidance has been very");
+	outtextxy(0,y+215,"helpful in various phases of the completion of the project.");
+	outtextxy(10,y+240,"Last but not the least I would like to thank my classmates who");
+	outtextxy(0,y+255,"helped me a lot.");
+}
+
+void credits::showcredits()
+{
+	outline();
+	settextstyle(0,0,1);
+	setcolor(15);
+	setviewport(42,95,625,465,1);
+	for(int i=425; i>=0; i-=5)
+	{
+		clearviewport();
+		credtits(i);
+		delay(205);
+	}
+	//delay(22*1000);
+	for(i=0; i>=(-265); i-=5)
+	{
+		clearviewport();
+		credtits(i);
+		delay(205);
+	}
+	//load
+	M.menu01();
+}
+
+void highscores::outline()
+{
+	setviewport(1,1,639,479,1);
+	clearviewport();
+	setcolor(15);
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"HIGHSCORES");
+}
+
+void highscores::get_high()
+{
+	outline();
+	setcolor(RED);
+	settextstyle(3,0,4);
+	outtextxy(50,100,"CRAZY TAXI :");
+	outtextxy(50,200,"PING PONG  :");
+	outtextxy(50,300,"DON'T SMASH:");
+	setcolor(WHITE);
+	settextstyle(1,0,3);
+	char C[10];
+	sprintf(C,"%d",U.ch);
+	outtextxy(100,140,C);
+	sprintf(C,"%d",U.ph);
+	outtextxy(100,240,C);
+	sprintf(C,"%d",U.dh);
+	outtextxy(100,340,C);
+
+	getch();
+	//load
+	M.menu01();
+}
+
+void highscores::update()
+{
+	ofstream filino;
+	filino.open(username,ios::out | ios::nocreate);
+	filino.seekp(0);
+	filino.write((char*)&U , sizeof(U));
+	filino.close();
+}
+
+#define SPEED 10
+
+void human::man(int x, int y)
+{
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x-7,y+10+30);
+	line(x-7,y+10+30,x-7,y+10+30+20);
+
+	//the other one
+	line(x,y+10,x+7,y+10+30);
+	line(x+7,y+10+30,x+7,y+10+30+20);
+
+	//one of the legs
+	line(x,y+10+50,x-4,y+10+50+20);
+	line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+
+	//the other leg
+	line(x,y+10+50,x+4,y+10+50+20);
+	line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+}
+
+void human::man_right(int &x, int &y)
+{
+	x+=SPEED;
+
+	//BODY #1
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x-10,y+10+20);
+	line(x-10,y+10+20,x-5,y+10+30+15);
+
+	//the other one
+	line(x,y+10,x+10,y+10+25);
+	line(x+10,y+10+25,x+25,y+10+40);
+
+	//one of the legs
+	line(x,y+10+50,x-2,y+10+50+20);
+	line(x-2,y+10+50+20,x-12,y+10+50+20+28);
+
+	//the other leg
+	line(x,y+10+50,x+6,y+10+50+15);
+	line(x+6,y+10+50+15,x+3,y+10+50+20+30);
+
+	delay(80);
+	clearviewport();
+	x+=SPEED;
+
+	//BODY #2
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x-5,y+10+22);
+	line(x-5,y+10+18,x+5,y+10+30+13);
+
+	//the other one
+	line(x,y+10,x-2,y+10+25);
+	line(x-2,y+10+25,x-5,y+10+40);
+
+	//one of the legs
+	line(x,y+10+50,x+5,y+10+50+20);
+	line(x+5,y+10+50+20,x,y+10+50+20+28);
+
+	//the other leg
+	line(x,y+10+50,x-3,y+10+50+15);
+	line(x-3,y+10+50+15,x-6,y+10+50+20+30);
+
+	delay(80);
+
+}
+
+void human::man_left(int &x, int &y)
+{
+	x-=SPEED;
+
+	//BODY #1
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x+10,y+10+20);
+	line(x+10,y+10+20,x+5,y+10+30+15);
+
+	//the other one
+	line(x,y+10,x-10,y+10+25);
+	line(x-10,y+10+25,x-25,y+10+40);
+
+	//one of the legs
+	line(x,y+10+50,x+2,y+10+50+20);
+	line(x+2,y+10+50+20,x+12,y+10+50+20+28);
+
+	//the other leg
+	line(x,y+10+50,x-6,y+10+50+15);
+	line(x-6,y+10+50+15,x-3,y+10+50+20+30);
+
+	delay(80);
+	clearviewport();
+	x-=SPEED;
+
+	//BODY #2
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x+5,y+10+22);
+	line(x+5,y+10+18,x-5,y+10+30+13);
+
+	//the other one
+	line(x,y+10,x+2,y+10+25);
+	line(x+2,y+10+25,x+5,y+10+40);
+
+	//one of the legs
+	line(x,y+10+50,x-5,y+10+50+20);
+	line(x-5,y+10+50+20,x,y+10+50+20+28);
+
+	//the other leg
+	line(x,y+10+50,x+3,y+10+50+15);
+	line(x+3,y+10+50+15,x+6,y+10+50+20+30);
+
+	delay(80);
+}
+
+void human::man_up(int &x, int &y)
+{
+	y-=SPEED;
+
+	//BODY #1
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x-7,y+10+30);
+	line(x-7,y+10+30,x-7,y+10+30+20);
+
+	//the other one
+	line(x,y+10,x+10,y+10+30);
+	line(x+10,y+10+30,x+7,y+10+30+20);
+
+	//one of the legs
+	line(x,y+10+50,x-6,y+10+50+20);
+	line(x-6,y+10+50+20,x-4,y+10+50+20+25);
+
+	//the other leg
+	line(x,y+10+50,x+4,y+10+50+20);
+	line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+
+	delay(80);
+	clearviewport();
+	y-=SPEED;
+
+	//BODY #2
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x-10,y+10+30);
+	line(x-10,y+10+30,x-7,y+10+30+20);
+
+	//the other one
+	line(x,y+10,x+7,y+10+30);
+	line(x+7,y+10+30,x+7,y+10+30+20);
+
+	//one of the legs
+	line(x,y+10+50,x-4,y+10+50+20);
+	line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+
+	//the other leg
+	line(x,y+10+50,x+6,y+10+50+20);
+	line(x+6,y+10+50+20,x+4,y+10+50+20+25);
+
+	delay(80);
+}
+
+void human::man_down(int &x, int &y)
+{
+	y+=SPEED;
+
+	//BODY #1
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x-7,y+10+30);
+	line(x-7,y+10+30,x-7,y+10+30+20);
+
+	//the other one
+	line(x,y+10,x+10,y+10+30);
+	line(x+10,y+10+30,x+7,y+10+30+20);
+
+	//one of the legs
+	line(x,y+10+50,x-6,y+10+50+22);
+	line(x-6,y+10+50+22,x-4,y+10+50+20+35);
+
+	//the other leg
+	line(x,y+10+50,x+4,y+10+50+20);
+	line(x+4,y+10+50+20,x+4,y+10+50+20+30);
+
+	delay(80);
+	clearviewport();
+	y+=SPEED;
+
+	//BODY #2
+
+	//face
+	circle(x,y,10);
+
+	//body
+	line(x,y+10,x,y+10+50);
+
+	//one of the hands
+	line(x,y+10,x-10,y+10+30);
+	line(x-10,y+10+30,x-7,y+10+30+20);
+
+	//the other one
+	line(x,y+10,x+7,y+10+30);
+	line(x+7,y+10+30,x+7,y+10+30+20);
+
+	//one of the legs
+	line(x,y+10+50,x-4,y+10+50+20);
+	line(x-4,y+10+50+20,x-4,y+10+50+20+30);
+
+	//the other leg
+	line(x,y+10+50,x+6,y+10+50+22);
+	line(x+6,y+10+50+22,x+4,y+10+50+20+35);
+
+	delay(80);
+}
+
+human::human()
+{
+	posx=30;
+	posy=25;
+}
+
+void menu::outline()
+{
+	setcolor(15);
+	rectangle(1,1,638,478);
+	rectangle(10,10,630,470);
+	setfillstyle(8,6);
+	floodfill(2,2,15);
+
+	// the box
+	setcolor(15);
+	setfillstyle(1,15);
+	rectangle(122,22,522,192);
+	floodfill(127,27,15);
+	//box cont.
+	setcolor(6);
+	setfillstyle(1,6);
+	rectangle(120,20,520,190);
+	floodfill(125,25,6);
+
+	//side boltz
+	setcolor(0);
+	setfillstyle(1,0);
+	fillellipse(141,41,5,5); //left top
+	fillellipse(501,41,5,5); //right top
+	fillellipse(141,171,5,5); //left bottom
+	fillellipse(501,171,5,5); //right bottom
+	//bolz cont.
+	setcolor(12);
+	setfillstyle(1,12);
+	fillellipse(140,40,5,5); //left top
+	fillellipse(500,40,5,5); //right top
+	fillellipse(140,170,5,5); //left bottom
+	fillellipse(500,170,5,5); //right bottom
+
+	//heading
+	setcolor(0);
+	settextstyle(0,0,4);
+	outtextxy(164,43,"TWISTED");
+	settextstyle(0,0,7);
+	outtextxy(164,83,"WIZARD");
+	//heading cont.
+	setcolor(12);
+	settextstyle(0,0,4);
+	outtextxy(160,40,"TWISTED");
+	settextstyle(0,0,7);
+	outtextxy(160,80,"WIZARD");
+
+	//copyright
+	setcolor(15);
+	settextstyle(2,0,4);
+	outtextxy(270,164,"C");
+	circle(272,170,5);
+	settextstyle(2,0,6);
+	outtextxy(281,160,"2018-19 AAYUSH CO.");
+
+	//land (for the man to walk)
+	line(10,435,630,435);
+	setfillstyle(1,2);
+	floodfill(12,437,15);
+}
+
+void menu::man_working(int x1, int y1, int x2, int y2)
+{
+	//setlinestyle(SOLID_LINE, 1, 3);
+	setviewport(x1,y1,x2,y2,1);
+	//rectangle(1,1,x2-x1-1,y2-y1-1);
+	clearviewport();
+	man(posx,posy);
+	for(;;)
+	{
+		char x,y ;
+		x = getch();
+		clearviewport();
+		switch(x)
+		{
+			case 0 :
+			{
+				y=getch();
+				switch(y)
+				{
+					case 72 :
+						man_up(posx,posy);
+						break;
+					case 80 :
+						man_down(posx,posy);
+						break;
+					case 75 :
+						man_left(posx,posy);
+						break;
+					case 77 :
+						man_right(posx,posy);
+						break;
+				}
+				break;
+			}
+			case 27 :
+				exit(1);
+				break;
+			case 13 :
+			{
+				if(page == 1)
+				{
+					if(posx>=90 && posx<=130)
+					{
+						page=2;
+						posx=30;
+						options(0);
+					}
+					else if(posx>=190 && posx<=250)
+					{
+						page=3;
+						posx=30;
+						options(0);
+					}
+					else if(posx>=310 && posx<=410)
+					{
+						LOAD.showload();
+						H.get_high();
+						//highscores
+					}
+					else if(posx == 490)
+					{
+						exit(1);
+					}
+				}
+				else if(page == 2)
+				{
+					if(posx>=70 && posx<=150)
+					{
+						LOAD.showload();
+						CAR.main_game();
+						//taxi
+					}
+					else if(posx>=190 && posx<=270)
+					{
+						LOAD.showload();
+						PING.main_game();
+						//pingpong
+					}
+					else if(posx>=330 && posx<=430)
+					{
+						LOAD.showload();
+						RUN.maingame();
+						//jump
+					}
+					else if(posx == 490)
+					{
+						page=1;
+						posx=30;
+						options(0);
+					}
+				}
+				else if(page == 3)
+				{
+					if(posx>=70 && posx<=130)
+					{
+						LOAD.showload();
+						C.showcredits();
+						//credit
+					}
+					else if(posx>=190 && posx<=270)
+					{
+						LOAD.showload();
+						CERT.showcertificate();
+						//certificate
+					}
+					else if(posx>=330 && posx<=410)
+					{
+						LOAD.showload();
+						CONT.showcontrols();
+						//control
+					}
+					else if(posx == 490)
+					{
+						page=1;
+						posx=30;
+						options(0);
+					}
+				}
+			}
+		}
+		clearviewport();
+		for(int i=0; i<8; ++i)  //to waste unwanted inputs
+			if(kbhit())
+				v=getch();
+		if(!kbhit())
+			man(posx,posy);
+		if(page == 1)
+		{
+			if(posx>=90 && posx<=130)
+				options(1);
+			else if(posx>=190 && posx<=250)
+				options(2);
+			else if(posx>=310 && posx<=410)
+				options(3);
+			else if(posx == 490)
+				options(4);
+			else
+				options(0);
+		}
+		else if(page == 2)
+		{
+			if(posx>=70 && posx<=150)
+				options(1);
+			else if(posx>=190 && posx<=270)
+				options(2);
+			else if(posx>=330 && posx<=430)
+				options(3);
+			else if(posx == 490)
+				options(4);
+			else
+				options(0);
+		}
+		else if(page == 3)
+		{
+			if(posx>=70 && posx<=130)
+				options(1);
+			else if(posx>=190 && posx<=270)
+				options(2);
+			else if(posx>=330 && posx<=410)
+				options(3);
+			else if(posx == 490)
+				options(4);
+			else
+				options(0);
+		}
+	}
+}
+
+void menu::options(int a=0)
+{
+	setviewport(30,200,610,300,1);
+	clearviewport();
+	//rectangle(1,1,580,100);
+	settextstyle(6,0,2);
+	setcolor(8);
+	if(page==1)
+	{
+		if(a!=1)
+			outtextxy(85,50,"START");
+		if(a!=2)
+			outtextxy(180,50,"OPTIONS");
+		if(a!=3)
+			outtextxy(300,50,"HIGHSCORES");
+		if(a!=4)
+			outtextxy(470,50,"EXIT");
+		setcolor(14);
+		settextstyle(6,0,3);
+		if(a==1)
+			outtextxy(85,20,"START");
+		else if(a==2)
+			outtextxy(180,20,"OPTIONS");
+		else if(a==3)
+			outtextxy(300,20,"HIGHSCORES");
+		else if(a==4)
+			outtextxy(470,20,"EXIT");
+	}
+	else if(page==2)
+	{
+		if(a!=1)
+			outtextxy(65,50,"CRAZY TAXI");
+		if(a!=2)
+			outtextxy(190,50,"PING PONG");
+		if(a!=3)
+			outtextxy(310,50,"DON'T SMASH");
+		if(a!=4)
+			outtextxy(470,50,"BACK");
+		setcolor(14);
+		settextstyle(6,0,3);
+		if(a==1)
+			outtextxy(65,20,"CRAZY TAXI");
+		else if(a==2)
+			outtextxy(190,20,"PING PONG");
+		else if(a==3)
+			outtextxy(310,20,"DON'T SMASH");
+		else if(a==4)
+			outtextxy(470,20,"BACK");
+	}
+	else if(page==3)
+	{
+		if(a!=1)
+			outtextxy(75,50,"CREDITS");
+		if(a!=2)
+			outtextxy(180,50,"CERTIFICATE");
+		if(a!=3)
+			outtextxy(310,50,"CONTROLS");
+		if(a!=4)
+			outtextxy(470,50,"BACK");
+		setcolor(14);
+		settextstyle(6,0,3);
+		if(a==1)
+			outtextxy(75,20,"CREDITS");
+		else if(a==2)
+			outtextxy(180,20,"CERTIFICATE");
+		else if(a==3)
+			outtextxy(310,20,"CONTROLS");
+		else if(a==4)
+			outtextxy(470,20,"BACK");
+	}
+	setcolor(15);
+	man_working(30,300,610,435);
+}
+
+void menu::menu01()
+{
+	setviewport(1,1,639,479,1);
+	clearviewport();
+	outline();
+
+	page=1;
+	options(0);
+}
+
+void user::getdata()
+{
+	gotoxy(10,10);
+	cout<<"Enter Username : ";
+	gets(name);
+	gotoxy(10,11);
+	cout<<"Enter Password : ";
+	for(int i=0; i<20; ++i)
+	{
+		char a;
+		a=getch();
+		if(a!=13)
+		{
+			password[i]=a;
+			cout<<"*";
+		}
+		else if(a==13)
+			break;
+	}
+	password[i]='\0';
+}
+
+void login::REGISTER()
+{
+	clearviewport();
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"REGISTER");
+	ofstream filin;
+	U.getdata();
+	strcpy(username,"G_");
+	strcat(username,U.name);
+	filin.open(username,ios::in | ios::noreplace);
+	if(filin.fail()==0)
+	{
+		U.ch=U.ph=U.dh=0;
+		filin.write((char*)&U , sizeof(U));
+		filin.close();
+		cout<<"\n \t \t File Created";
+		delay(2*1000);
+		getch();
+		cleardevice();
+		//load
+		M.menu01();
+	}
+	else
+	{
+		cout<<"\n \t \t Username already exists";
+		delay(2*1000);
+		getch();
+		filin.close();
+		ask();
+	}
+}
+
+void login::L0GIN()
+{
+	clearviewport();
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"LOGIN");
+	user U3;
+	fstream filin2;
+	U.getdata();
+	strcpy(username,"G_");
+	strcat(username,U.name);
+	filin2.open(username,ios::in | ios::nocreate);
+	if(filin2.fail()==0)
+	{
+		filin2.seekg(0);
+		filin2.read((char*)&U3 , sizeof(U3));
+		if(strcmp(U.name,U3.name)==0 && strcmp(U.password,U3.password)==0)
+		{
+			cout<<"\n \t \t WELCOME";
+			U=U3;
+			delay(2*1000);
+			getch();
+			cleardevice();
+			//load
+			M.menu01();
+		}
+		else
+		{
+			cout<<"\n \t \t Incorrect Password";
+			delay(2*1000);
+			getch();
+			filin2.close();
+			ask();
+		}
+	}
+	else
+	{
+		cout<<"\n \t \t Wrong Username";
+		delay(2*1000);
+		getch();
+		filin2.close();
+		ask();
+	}
+	end:
+	filin2.close();
+}
+
+void login::outline()
+{
+	setviewport(1,1,639,479,1);
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	setviewport(12,12,628,468,1);
+	clearviewport();
+}
+
+void login::ask()
+{
+	outline();
+	settextstyle(8,0,2);
+	char w='w',b;
+	setcolor(YELLOW);
+	setviewport(12,12,628,468,1);
+	for(;;)
+	{
+		settextstyle(8,0,2);
+		setcolor(YELLOW);
+		if(w=='w')
+		{
+			outtextxy(170,190,"* Open a previous account");
+			outtextxy(192,230,"Create a new account");
+			setcolor(RED);
+			outtextxy(170,190,"*");
+		}
+		else if(w=='s')
+		{
+			outtextxy(192,190,"Open a previous account");
+			outtextxy(170,230,"* Create a new account");
+			setcolor(RED);
+			outtextxy(170,230,"*");
+		}
+		b=w;
+		w=getch();
+		if(w!='w' && w!='s' && w!=13 && w!=27)
+			w=b;
+		clearviewport();
+		if(w==13)
+		{
+			if(b=='w')
+				L0GIN();
+			else if(b=='s')
+				REGISTER();
+			break;
+		}
+		else if(w==27)
+			break;
+	}
+}

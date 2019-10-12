@@ -1,0 +1,36 @@
+#include<iostream.h>
+#include<conio.h>
+#include<math.h>
+int sumdig(long int a)
+{
+	int s=0,n=0;
+	for(;a>0;a=a/10)
+	{
+		n=a%10;
+		s=s+n;
+	}
+	return(s);
+}
+void main()
+{
+	clrscr();
+	int T;
+	cin>>T;
+	cout<<endl;
+	for(int i=0;i<T;++i)
+	{
+		int z;
+		cin>>z;
+		for(long int k=0;k<10000000;++k)
+		{
+			int j=sumdig(k);
+			int n=pow(10,z);
+			if(j==z && j%n==0)
+			{
+				cout<<endl<<k;
+				break;
+			}
+		}
+	}
+	getch();
+}

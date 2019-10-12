@@ -1,0 +1,115 @@
+#include<iostream.h>
+#include<conio.h>
+#include <stdio.h>
+//bubble sort
+void bubble()
+{
+	int arr[100],tmp,large,k,j,loc,i,n;
+	cout<<"Enter the number of elements in array\n";
+	cin>>n;
+	cout<<"Enter "<<n<<" integer\n";
+	for(i=0;i<n;i++)
+	{
+		cin>>arr[i];
+	}
+	cout<<"before sorting\n";
+	for(i=0;i<n;i++)
+	{
+		cout<<"array is "<<arr[i]<<endl;
+	}
+	for(j=0;j<=n-2;j++)
+	{
+		for(k=0;k<=n-1-j;k++)
+		{
+			if(arr[k]>arr[k+1])
+			{
+				tmp=arr[k];
+				arr[k]=arr[k+1];
+				arr[k+1]=tmp;
+			}
+		}
+	}
+	cout<<"after sorting\n";
+	for(i=0;i<n;i++)
+	{
+		cout<<arr[i]<<endl;
+	}
+}
+//selection sort
+void selection()
+{
+	int s,i,j,temp,a[20];
+	cout<<"Enter total elements: ";
+	cin>>s;
+	cout<<"Enter "<<s<<" elements: ";
+	for(i=0;i<s;i++)
+		cin>>a[i];
+	for(i=0;i<s;i++)
+	{
+		for(j=i+1;j<s;j++)
+		{
+			if(a[i]>a[j])
+			{
+				temp=a[i];
+				a[i]=a[j];
+				a[j]=temp;
+			}
+		}
+	}
+	cout<<"After sorting is: ";
+	for(i=0;i<s;i++)
+		cout<<a[i];
+}
+
+//insertion sort
+void insertion()
+{
+	int n, array[10], c, d, t;
+	cout<<"Enter number of elements\n";
+	cin>>n;
+	cout<<"Enter "<<n<<" integers\n";
+	for (c = 0; c < n; c++)
+	{
+		cin>>array[c];
+	}
+	for (c = 1 ; c <= n - 1; c++)
+	{
+		d = c;
+		while ( d > 0 && array[d] < array[d-1])
+		{
+			t = array[d];
+			array[d] = array[d-1];
+			array[d-1] = t;
+			d--;
+		}
+	}
+	cout<<"Sorted list in ascending order:\n";
+	for (c = 0; c <= n - 1; c++)
+	{
+		cout<<array[c]<<endl;
+	}
+}
+
+void main()
+{
+	clrscr();
+	int ch;
+	cout<<"Enter 1 for bubble sort.\nEnter 2 for selection sort.\nEnter 3 for insertion sort.\n";
+	cin>>ch;
+	switch(ch)
+	{
+		case 1:
+			bubble();
+			break;
+		case 2:
+			selection();
+			break;
+		case 3:
+			insertion();
+			break;
+		default:
+			cout<<"wrong choice";
+			break;
+	}
+	getch();
+}

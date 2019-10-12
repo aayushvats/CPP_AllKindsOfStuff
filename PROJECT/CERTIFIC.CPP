@@ -1,0 +1,56 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+
+class certificate
+{
+    public:
+	void outline();
+	void showcertificate();
+};
+
+void certificate::outline()
+{
+	rectangle(1,1,639,479);
+	rectangle(10,10,630,470);
+	setfillstyle(8,11);
+	floodfill(2,2,15);
+	settextstyle(8,0,7);
+	setcolor(3);
+	outtextxy(15,0,"CERTIFICATE");
+}
+
+void certificate::showcertificate()
+{
+	outline();
+	setcolor(WHITE);
+	setfillstyle(SOLID_FILL,WHITE);
+	rectangle(120,100,480,460);
+	floodfill(130,110,WHITE);
+	setcolor(RED);
+	settextstyle(4,0,3);
+	outtextxy(160,110,"Apeejay School,Pitampura");
+	settextstyle(8,0,2);
+	outtextxy(220,210,"CERTIFICATE");
+	setcolor(BLUE);
+	outtextxy(150,160,"Department of Computers");
+	settextstyle(0,0,0);
+	setcolor(BLACK);
+	outtextxy(140,260,"This is to certify that Aayush Vats, a ");
+	outtextxy(140,275,"of class XII-A has succesfully completed");
+	outtextxy(140,290,"the project 'Arcade Games UI' under the");
+	outtextxy(140,305,"guidance of Ms.Puja Malhotra during the ");
+	outtextxy(140,320,"year 2018-19 in the partial fulfillment of");
+	outtextxy(140,335,"computer science practical examination");
+	outtextxy(140,350,"conducted by AISSCE, New Delhi.");
+}
+
+void main()
+{
+	int gd=DETECT, gm;
+	initgraph(&gd, &gm, "C:/TURBOC3/BGi");
+	cleardevice();
+	certificate C;
+	C.showcertificate();
+	getch();
+}

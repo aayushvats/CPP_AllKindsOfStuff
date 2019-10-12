@@ -1,0 +1,59 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+class Bowlers
+{
+		char F_Name[30];
+		char L_Name[30];
+		int Overs_bowled,Maiden_overs,Runs_given,Wickets;
+	public:
+		void initial()
+		{
+			cout<<endl<<"\t Enter First Name: ";
+			gets(F_Name);
+			cout<<"\t Enter Last Name: ";
+			gets(L_Name);
+			cout<<"\t Enter The Overs bowled: ";
+			cin>>Overs_bowled;
+			cout<<"\t Enter how many overs maden: ";
+			cin>>Maiden_overs;
+			cout<<"\t Enter how many runs given: ";
+			cin>>Runs_given;
+			cout<<"\t Enter how many wickets taken: ";
+			cin>>Wickets;
+		}
+		void update()
+		{
+			int new_over_bolwed,new_maiden_overs,new_runs_given,new_wickets;
+			cout<<"\t Enter new overs bowled: ";
+			cin>>new_over_bolwed;
+			cout<<"\t Enter new madden overs: ";
+			cin>>new_maiden_overs;
+			cout<<"\t Enter new runs given: ";
+			cin>>new_runs_given;
+			cout<<"\t Enter new wickets taken: ";
+			cin>>new_wickets;
+			Overs_bowled=Overs_bowled+new_over_bolwed;
+			Maiden_overs=Maiden_overs+new_maiden_overs;
+			Runs_given=Runs_given+new_runs_given;
+			Wickets=Wickets+new_wickets;
+			display();
+			cout<<"\n \t Total overs bowled: "<<Overs_bowled<<endl;
+			cout<<"\t Total maidden overs: "<<Maiden_overs<<endl;
+			cout<<"\t Total runs given: "<<Runs_given<<endl;
+			cout<<"\t Total wickets taken: "<<Wickets<<endl;
+		}
+		void display()
+		{
+			cout<<"\t .....Bolwer's information....."<<endl;
+			cout<<"\t Name: "<<F_Name<<" "<<L_Name<<endl;
+		}
+};
+void main()
+{
+	clrscr();
+	Bowlers b1;
+	b1.initial();
+	b1.update();
+	getch();
+}

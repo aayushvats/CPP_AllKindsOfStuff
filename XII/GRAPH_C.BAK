@@ -1,0 +1,454 @@
+/******************* Include Files ****************************/
+#include <stdio.h>
+#include <conio.h>
+#include <graphics.h>
+#include <stdlib.h>
+#include <math.h>
+#include <dos.h>
+/******************** Macros and enums ***************************/
+	/* NOTE : Specify the path where your graphics files are located
+		in BGI_PATH. Usually located in your TurboC++ folder. " " indicates
+		current path. Code will not compile if this path is not correct. */
+#define BGI_PATH ""
+#define PI 3.14159265
+#define AUTO 0.0
+#define ESC 27
+#define IGNORE_BOUNDARY_ERRORS 0	// Set this to 0 if you want to
+									// see the "Out of bounds" errors
+									// generated when DrawGraph() encounters
+									// points which are outside the screen area
+									// There may be 1 or 2 of these errors
+									// probably due to floating-point inaccuracy.
+									// However, a large number of such errors may mean
+									// you're using a wrong scale/refernce
+enum GraphStyle { LINE, POINT };
+enum FunctionType { CARTESIAN, POLAR };
+/******************** Structure Definition **********************/
+	// Structure contains options to vary appearence of graph
+struct GraphOpts
+{
+	enum GraphStyle GraphStyle;		// Line, point or circle
+	int Color,			// Color of line or point
+		LineThickness,	// for GraphStyle = LINE only, see the
+		LinePattern,	// setlinestyle() library function for usage
+		LineStyle,
+		xref, yref,		// use these to shift graph left/right/up/down (0,0) is the default
+						// You'll have to use custom scales too if these are not 0
+		IdenticalScales;	// Values : 0 or 1. Whether same scale is used for both axes
+							// This is ignored if you are using a custom scale
+							// If different scales are used, the whole
+							// screen is used, but true nature of graph
+							// does not appear.
+		double scale_x, scale_y;	// Allows you to define custom scales,
+									// use AUTO to calculate best scale automatically
+							// scale is the number of values each pixel represents
+							// The lower the scale, the better
+};
+/******************** Global Variables ***************************/
+int MaxX, MaxY;			// Max. x and y coordinates for current graphics mode
+						// Filled by Initialize()
+/******************** Function Prototypes ******************/
+void Initialize( void );
+void DrawGraph( double xmin, double xmax, double dx, double (*fx)( double x ), enum FunctionType fun_type, struct GraphOpts *g );
+double FindMax( double a[], unsigned size );
+double FindMin( double a[], unsigned size );
+int IsBetween( double x, double low, double high );
+void PolarToCartesian( double r, double theta, double *x, double *y );
+void Abort( char *msg, int ExitCode );
+void Wait( void );
+	// Some demo functions
+double f1( double );
+double f2( double );
+double f3( double );
+double f4( double );
+double f5( double );
+double f6( double );
+double f7( double );
+double f8( double );
+double f9( double );
+double f10( double );
+double f11( double );
+double f12( double );
+/**************************** main() **************************/
+int main( )
+{
+	struct GraphOpts g;
+		// These should be good defaults
+	g.GraphStyle = LINE;
+	g.Color = RED;
+	g.LineThickness = 1;
+	g.LinePattern = 0;
+	g.LineStyle = SOLID_LINE;
+	g.IdenticalScales = 1;
+	g.xref = 0;
+	g.yref = 0;
+	g.scale_x =  AUTO;
+	g.scale_y =  AUTO;
+	Initialize();
+	settextstyle( SMALL_FONT, HORIZ_DIR, 4 );
+		// Screen 1
+	cleardevice();
+	g.scale_y = 50;
+	setcolor( RED );outtext("y = x^2");
+	setcolor( GREEN );outtext("  y = e^x ");
+	setcolor( YELLOW );outtext("  y = 1/(.5+x^2) ");
+	g.Color = RED;
+	DrawGraph( 0, 3, 0.1, f1, CARTESIAN, &g );
+	g.Color = GREEN;
+	DrawGraph( 0, 2, 0.1, exp, CARTESIAN, &g );
+	g.Color = YELLOW;
+	DrawGraph( 0, 3, 0.1, f2, CARTESIAN, &g );
+	Wait();
+			// Screen 2
+	cleardevice();
+	outtext("Functions");
+	setcolor( RED ); outtext(" y = sin(x) ");
+	setcolor( WHITE ); outtext(" , ");
+	setcolor( YELLOW ); outtext(" y = sin(2*x) ");
+	setcolor( MAGENTA );outtext(" y = 2*sin(x) ");
+	setcolor( WHITE ); outtext( " using custom scale and reference for y-axis. " );
+	g.scale_y = 100;
+	g.yref = (MaxY+1)/2;
+	g.GraphStyle = POINT;
+	DrawGraph( 0, 4*PI, PI/15, sin, CARTESIAN, &g );
+	g.Color = YELLOW;
+	g.LineStyle = DASHED_LINE;
+	g.GraphStyle =  LINE;
+	DrawGraph( 0, 4*PI, PI/15, f3, CARTESIAN, &g );
+	g.Color = MAGENTA;
+	g.LineStyle = SOLID_LINE;
+	DrawGraph( 0, 4*PI, PI/15, f4, CARTESIAN, &g );
+	Wait();
+		// Screen 3
+	cleardevice();
+	setcolor( RED ); outtext( " y = cos(x) " );
+	setcolor( BLUE ); outtext( " y = cos( x+PI/6 )" );
+	setcolor( LIGHTGREEN ); outtext( " y = cos( x+PI/3) ");
+	g.GraphStyle = LINE;
+	g.LineStyle = SOLID_LINE;
+	g.Color = RED;
+	DrawGraph( 0, 4*PI, PI/10, f5, CARTESIAN,  &g );
+	g.Color = BLUE;
+	DrawGraph( 0, 4*PI, PI/10, f6, CARTESIAN,  &g );
+	g.Color = LIGHTGREEN;
+	DrawGraph( 0, 4*PI, PI/10, f7, CARTESIAN,  &g );
+	Wait();
+		// Screen 4
+	cleardevice();
+	g.yref = 0;
+	g.scale_y = AUTO;
+	setcolor( RED );outtext( " \"The spiral\", r = t+sin(t) - POLAR using auto scale");
+	DrawGraph( 0, 6*PI, PI/25, f8, POLAR, &g );
+	Wait();
+		// Screen 5
+	cleardevice();
+	outtext( "\"The Cardoid\", r = 1 + cos(t) polar");
+	g.Color = RED;
+	g.xref = ( MaxX+1 )/2;
+	g.yref = (MaxY+1)/2;
+	g.scale_x = 150;
+	g.scale_y = 100;
+	DrawGraph( 0,2*PI, PI/25, f9, POLAR, &g );
+	Wait();
+		// Screen 6
+	cleardevice();
+	outtext( "\"Three - leaved rose\", r = cos(3*t)");
+	g.Color = CYAN;
+	g.xref  = g.yref= 0;
+	g.scale_x  = g.scale_y = AUTO;
+	DrawGraph( 0, 2*PI, PI/25, f10, POLAR, &g );
+	Wait();
+		//Screen 7
+	cleardevice();
+	outtext( "A funny function");
+	g.Color = RED;
+	DrawGraph( 0, 4*PI, PI/20, f11, CARTESIAN, &g );
+	Wait();
+		// Screen 8
+	cleardevice();
+	outtext( "y = sin(2*x) + sin(x/2)" );
+	g.Color = RED;
+	DrawGraph( 0, 8*PI, PI/20, f12, CARTESIAN, &g );
+	Wait();
+	closegraph();
+	restorecrtmode();
+	return 0;
+}	// End of main()
+/********************* DrawGraph() *************************/
+/* Draws the graph of specified function y = f(x) ( Cartesian ) or r = f(theta) ( Polar )
+ Parameters :
+	xmin, xmax : the min and max values of x ( both inclusive ),
+	dx :  the step length or increment in x
+	(*fx) : a pointer to a function ( which is nothing but the name of function without
+		brackets ) which returns the value of y for a given x. Must have prototype double fun( double )
+	fun_type : CARTESIAN or POLAR
+	g : Address of a graphopts variable to control appearence of graph
+	For polar function (x,y) -> (r,theta). But, the way args are passed to our function,
+	x->theta and y->r, so a little mod is needed.
+*/
+void DrawGraph( double xmin, double xmax, double dx, double (*fx)( double x ), enum FunctionType fun_type, struct GraphOpts *g )
+{
+	int npts, x_pt, y_pt, flag = 0, i;
+	double *x_vals, *y_vals, scale_x, scale_y, x, y, ymin, ymax;
+	int prev_color;		// To restore settings we modify
+	struct linesettingstype prev_ls;
+	prev_color = getcolor();
+	getlinesettings( &prev_ls );
+			// Calculate no of points
+	npts = ( xmax - xmin ) / dx + 1;
+	if( npts <= 1 )
+		Abort( "DrawGraph() : Too few points", 0 );
+		// Allocate space for holding y values
+	y_vals = ( double* ) malloc( sizeof( double ) * npts );
+	if( !y_vals )
+		Abort( "DrawGraph() : Memory allocation failed", 1 );
+		// If function is polar, we need to hold the Cartesian values of theta too
+	if( fun_type == POLAR )
+	{
+		x_vals = ( double* ) malloc( sizeof( double ) * npts );
+		if( !x_vals )
+			Abort( "DrawGraph() : Memory allocation falied", 1 );
+	}
+		// Calculate y ( or r ) values for each x ( or theta )
+	x = xmin;
+	for( i = 0; i < npts; i++ )
+	{
+		y_vals[i] = fx( x );
+		x += dx;
+	}
+	/* In case of polar function, transform the points into
+	Cartesian. Till now y -> r and x -> theta. This will be
+	changed to x -> r and y -> theta, by the folowing function call */
+	if( fun_type == POLAR )
+	{
+		x = xmin;
+		for( i = 0; i < npts; i++ )
+		{
+			PolarToCartesian(  y_vals[i], x, &x_vals[i], &y_vals[i] );
+			x += dx;
+		}
+       }
+		// Find new range if fn. is polar
+	if( fun_type == POLAR )
+	{
+		xmin = FindMin( x_vals, npts );
+		xmax = FindMax( x_vals, npts );
+	}
+		// Time to calculate the scales
+	if( g->scale_x != AUTO )
+		scale_x = g->scale_x;
+	else
+	{
+		if( xmax == xmin )		// The function is a polar const fn.
+			flag = 1;		// Setup flag so that we can make scale_x = scale_y later
+		else
+			scale_x =  MaxX /( xmax - xmin ); // Div-by-zero if xmin == xmax
+	}
+	if( g->scale_y != AUTO )
+		scale_y = g->scale_y;
+	else
+	{
+		ymin = FindMin( y_vals, npts );
+		ymax = FindMax( y_vals, npts );
+		if( ymin == ymax )		// The function is a Cartesian const fn.
+			scale_y = scale_x;
+		else
+			scale_y =  MaxY / ( ymax - ymin );
+	}
+	if( flag )
+		scale_x = scale_y;
+		// If both scales are AUTO and IdenticalScales is true
+		// choose the better ( lesser ) of the two scales
+	if( g->scale_x == AUTO && g->scale_y == AUTO && g->IdenticalScales )
+	{
+			if( scale_x < scale_y )
+				scale_y = scale_x;
+			else
+				scale_x = scale_y;
+	}
+		// Prepare to plot the graph
+	setcolor( g->Color );
+	if( g->GraphStyle == LINE )
+		setlinestyle( g->LineStyle, g->LinePattern, g->LineThickness );
+		// If GraphStyle is LINE, we need to 'move' to the first point
+	if( g->GraphStyle == LINE )
+	{
+		if( g->scale_y == AUTO )
+		{
+			if( fun_type == POLAR )
+				moveto( g->xref + (x_vals[0]-xmin)* scale_x , MaxY - (y_vals[0]-ymin)* scale_y - g->yref );
+			else
+				moveto( g->xref + xmin*scale_x , MaxY - (y_vals[0]-ymin)*scale_y - g->yref );
+		}
+		else
+		{
+			if( fun_type == POLAR )
+				moveto( g->xref + x_vals[0]*scale_x, MaxY - y_vals[0]*scale_y - g->yref );
+			else
+				moveto( g->xref + xmin*scale_x, MaxY - y_vals[0]*scale_y - g->yref );
+		}
+	}
+		// Finally, plot the graph
+	x = xmin;
+	for( i = 0; i < npts; i++ )
+	{
+			// Calculate the next point
+		if( g->scale_x == AUTO )
+		{
+			if( fun_type == POLAR )
+				x_pt =  (x_vals[i] - xmin)*scale_x + g->xref;	// Subtract from min. value
+			else												// to get relative position
+				x_pt =  (x - xmin)*scale_x + g->xref;
+		}
+		else
+		{
+			if( fun_type == POLAR )
+				x_pt = x_vals[i]*scale_x + g->xref;
+			else
+				x_pt = x*scale_x + g->xref;
+		}
+			// The screen y coordinates increase from top to bottom,
+			// which is not how we want it, so subtract from MaxY
+		if( g->scale_y == AUTO )
+			y_pt = MaxY - (y_vals[i]- ymin) * scale_y - g->yref;
+		else
+			y_pt = MaxY - y_vals[i] * scale_y - g->yref;
+		if( IsBetween( x_pt, 0, MaxX ) && IsBetween( y_pt, 0, MaxY ))
+		{
+			if( g->GraphStyle == POINT )
+				putpixel( x_pt, y_pt, g->Color );
+			else
+				lineto( x_pt , y_pt );
+//			delay(500);		// Uncomment this to see how graph is plotted in real time
+		}
+		else
+		{
+			if( ! IGNORE_BOUNDARY_ERRORS )
+				printf("Point (%d,%d) out of bounds.", x_pt, y_pt );
+		}
+		x+=dx;
+	}	// End of for
+		// Restore modified settings
+	setcolor( prev_color );
+	setlinestyle( prev_ls.linestyle, prev_ls.upattern, prev_ls.thickness );
+}	// End of DrawGraph()
+/******************** Other Functions ***************************/
+	// Initialize the graphics system
+void Initialize( void )
+{
+	int GraphDriver	= DETECT, GraphMode, ErrorCode;
+	initgraph( &GraphDriver, &GraphMode, BGI_PATH );
+	ErrorCode = graphresult();
+	if( ErrorCode != grOk )
+	{
+		printf("\nGraphics system error: %s", grapherrormsg( ErrorCode ));
+		exit( 1 );
+	}
+	MaxX = getmaxx( );
+	MaxY = getmaxy( );
+}
+	// Find min elem of array
+double FindMax( double a[], unsigned size )
+{
+	int i;
+	double max = a[0];
+	for( i = 1; i < size; i++ )
+		if( a[i] > max )
+			max = a[i];
+	return max;
+}
+	// Find min elem of array
+double FindMin( double a[], unsigned size )
+{
+	int i;
+	double min = a[0];
+	for( i = 1; i < size; i++ )
+		if( a[i] < min )
+			min = a[i];
+	return min;
+}
+	// Conversion from polar to Cartesian
+void PolarToCartesian( double r, double theta, double *x, double *y )
+{
+	*x = r * cos( theta );
+	*y = r * sin( theta );
+}
+	// Check if x lies within low and high
+int IsBetween( double x ,double low, double high )
+{
+	return ( x>=low && x<=high );
+}
+	// Print error message, wait,cleanup and exit
+void Abort( char *msg, int ExitCode )
+{
+	fprintf( stderr, "\nmsg", msg );
+	fprintf( stderr, "\nPress any key to exit..." );
+	while(!kbhit())
+		;
+	closegraph();
+	restorecrtmode();
+	exit( ExitCode );
+}
+	// Wait for user input and exit if ESC is pressed
+void Wait( void )
+{
+	char ch;
+	outtextxy( 10, MaxY-10,"Press any key to continue,Esc to abort...");
+	ch = getch();
+	if( ch == ESC )
+	{
+		closegraph();
+		restorecrtmode();
+		exit(0);
+	}
+}
+double f1 ( double x )
+{
+	return x*x;
+}
+double f2( double x )
+{
+	return 1.0/(.5+x*x);
+}
+double f3( double x )
+{
+	return sin(2*x);
+}
+double f4( double x )
+{
+	return 2*sin(x);
+}
+double f5( double x )
+{
+	return cos(x);
+}
+double f6( double x )
+{
+	return cos(x+PI/3);
+}
+double f7( double x )
+{
+	return cos(x+PI/6);
+}
+double f8( double x )
+{
+	return x+sin(x);
+}
+double f9( double x )
+{
+	return 1+cos(x);
+}
+double f10( double x )
+{
+	return cos(3*x);
+}
+double f11( double x )
+{
+	static int term = -1;
+	term++;
+	return pow( -1, term )*sin(x);
+}
+double f12( double x )
+{
+	return sin(2*x) + sin(x/2);
+}

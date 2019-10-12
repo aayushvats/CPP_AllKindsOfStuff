@@ -1,0 +1,28 @@
+#include<iostream.h>
+#include<conio.h>
+void main ()
+{
+	clrscr();
+	int sum=0,i=2,result=1, j=1, num ,k=1,fact=1,l=2;
+	cout<<"enter the number (less than 18)"<<endl;
+	cin>>num;
+	cout<<endl<<"1 +";
+	for(i=2;i<=num;i++)
+	{
+		cout<<i<<"^"<<k<<"/"<<l<<"!"<<"+";
+		result=1;
+		for(k=1;k<=i;k++)
+		{
+			result=result*i;
+		}
+		fact=1;
+		for(j=l;j>0;j--)
+		{
+			fact=fact*j;
+		}
+		sum=(1+(result/fact));
+		l++;
+	}
+	cout<<endl<<endl<<"series sum is :"<<sum<<endl;
+	getch();
+}

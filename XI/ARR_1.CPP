@@ -1,0 +1,22 @@
+#include<iostream.h>
+#include<conio.h>
+void main()
+{
+	clrscr();
+	int a[5];
+	for(int i=0;i<5;i++)
+	{
+
+		cout<<"Input element "<<i+1<<" : ";
+		cin>>a[i];
+		if(a[i]%2==0)
+			a[i]=(a[i])/2;
+		else
+			a[i]=(a[i]*2);
+	}
+	for(i=0;i<5;i++)
+	{
+		cout<<endl<<"New element "<<i+1<<" : "<<a[i];
+	}
+	getch();
+}

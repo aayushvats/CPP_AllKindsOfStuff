@@ -1,0 +1,25 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+void removeSpaces(char* s)
+{
+	char* source = s;
+	char* dest = s;
+	while(*source)
+	{
+		if(*source == ' ')
+			source++;
+		else
+			*dest++ = *source++;
+	}
+	*dest = 0;
+}
+void main()
+{
+	clrscr();
+	char input[50];
+	gets(input);
+	removeSpaces(input);
+	cout<<input;
+	getch();
+}

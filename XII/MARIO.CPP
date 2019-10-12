@@ -1,0 +1,23 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+#include<stdlib.h>
+
+void main()
+{
+	int gd=DETECT, gm;
+	initgraph(&gd, &gm, "C:/TURBOC3/BGi");
+	cleardevice();
+	setbkcolor(15);
+	for(int i=0; i<=11; ++i)
+	{
+		settextstyle(i,0,5);
+		setcolor(8);
+		outtextxy(100,100,"Super Mario Bro.s");
+		char a[10];
+		itoa(i,a,10);
+		outtextxy(200,200,a);
+		getch();
+		cleardevice();
+	}
+}

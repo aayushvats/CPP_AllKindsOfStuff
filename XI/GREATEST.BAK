@@ -1,0 +1,19 @@
+#include<iostream.h>
+#include<conio.h>
+void main()
+{
+clrscr();
+float a,b,c,d,e;
+cout<<"Give any 5 numbers !! ";
+cout<<"Give the first Number ";
+cin>>a;
+cout<<"Give the second Number ";
+cin>>b;
+cout<<"Give the third Number ";
+cin>>c;
+cout<<"Give the fourth Number ";
+cin>>d;
+cout<<"Give the fifth Number ";
+cin>>e;
+getch();
+}

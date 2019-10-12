@@ -1,0 +1,30 @@
+#include<iostream.h>
+#include<conio.h>
+int calfuel(int d)
+{
+	int a=d,p=500;
+	a=d-1000;
+	cout<<"Cost for first 1000 kms is "<<p;
+	if(a>=1000)
+	{
+		a=d-1000;
+		p=p+1100;
+		cout<<endl<<"cost for Next 1000 kms is "<<1100;
+		if(a>1000)
+		{
+			p=p+2200;
+			cout<<endl<<"Cost for subsequent kms is "<<2200;
+		}
+	  }
+	cout<<endl<<"total cost is "<<p;
+	return(p);
+}
+void main()
+{
+	clrscr();
+	int d,c;
+	cout<<"give the distace travelled ";
+	cin>>d;
+	c=calfuel(d);
+	getch();
+}

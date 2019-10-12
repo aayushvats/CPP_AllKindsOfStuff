@@ -1,0 +1,111 @@
+#include<iostream.h>
+#include<conio.h>
+#include<graphics.h>
+#include<stdlib.h>
+#include<stdio.h>
+void main()
+{
+	clrscr();
+	int gd=DETECT,gm;
+	initgraph(&gd,&gm,"C:\\TURBOC3\\BGI");
+	setbkcolor(CYAN);
+	int x=540,y=69;
+	char X[20], Y[20];
+	char m;
+	for(;;)
+
+	{
+		settextstyle(0,0,1);
+		outtextxy(x,y,".");
+		m=getch();
+		if(m==100)
+		       {x++;}
+		else if(m==97)
+			{x--;}
+		else if(m==115)
+			{y++;}
+		else if(m==119)
+			{y--;}
+		else if(m==101)
+			exit(1);
+		cleardevice();
+		sprintf(X,"x=%d",x);
+		sprintf(Y,"y=%d",y);
+	      // outtextxy(50,50,X);
+	      // outtextxy(80,80,Y);
+			{       setcolor(DARKGRAY);
+				arc(300,220,45,135,200);
+				arc(300,250,45,135,170);
+				line(159,78,179,130);
+				line(441,78,421,130);
+				line(220,129,379,129);
+				line(220,193,379,193);
+				arc(220,161,90,270,32);
+				arc(379,161,270,90,32);
+				line(169,104,129,130); //Left upper
+				line(431,104,471,130); //RightUpper
+				line(192,118,197,131); //Left Right loe
+				line(145,167,197,131); //left low
+				line(408,118,403,131); //Right left loe
+				line(455,167,403,131); //right low
+				line(145,167,152,142); //Left ribbon low
+				line(152,142,129,130); //Left ribbon upper
+				line(455,167,448,142); //Right ribbon lower
+				line(448,142,471,130); //Right upper ribbon
+				setfillstyle(SOLID_FILL,WHITE);
+				floodfill(194,83,DARKGRAY);
+				floodfill(165,121,DARKGRAY);
+				floodfill(435,123,DARKGRAY);
+				setfillstyle(SOLID_FILL,GREEN);
+				floodfill(343,160,DARKGRAY);
+				settextstyle(3,0,6);
+				setcolor(RED);
+				outtextxy(182,47,"C");
+				outtextxy(218,32,"E");
+				outtextxy(254,20,"N");
+				outtextxy(290,12,"T");
+				outtextxy(326,20,"R");
+				outtextxy(362,32,"A");
+				outtextxy(398,47,"L");
+				settextstyle(3,0,5);
+				setcolor(WHITE);
+				outtextxy(225,130,"P E R K");
+				settextstyle(3,0,2);
+				outtextxy(200,140,"o");
+				outtextxy(394,140,"o");
+
+					//cups
+					{
+					    //1
+						ellipse(60,95,180,360,40,65);
+						ellipse(60,95,0,360,40,10);
+						arc(23,123,100,300,20);
+						arc(23,123,100,300,16);
+						ellipse(35,85,270,90,5,10);
+						ellipse(35,65,90,270,5,10);
+						ellipse(60,85,270,90,5,10);
+						ellipse(60,65,90,270,5,10);
+						ellipse(85,85,270,90,5,10);
+						ellipse(85,65,90,270,5,10);
+					    //2
+						ellipse(550,95,180,360,40,65);
+						ellipse(550,95,0,360,40,10);
+						arc(585,123,255,70,20);
+						arc(585,123,255,70,16);
+						ellipse(525,85,90,270,5,10);
+						ellipse(525,65,270,90,5,10);
+						ellipse(550,85,90,270,5,10);
+						ellipse(550,65,270,90,5,10);
+						ellipse(575,85,90,270,5,10);
+						ellipse(575,65,270,90,5,10);
+
+					}
+
+
+
+
+
+			}
+
+	}
+}
